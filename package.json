@@ -1,0 +1,42 @@
+{
+  "name": "Arpio",
+  "version": "0.1.0",
+  "description": "Raspberry Pi I/O Control",
+  "main": "index.js",
+  "scripts": {
+    "install-all": "concurrently \"npm run install-backend\" \"npm run install-frontend\"",
+    "install-backend": "cd backend && npm install-backend",
+    "install-frontend": "cd frontend && npm install-frontend",
+    "start-all": "concurrently \"npm run start-backend\" \"npm run start-frontend\"",
+    "start-backend": "npm run start --prefix backend",
+    "start-frontend": "npm run start --prefix frontend",
+    "build-all": "concurrently \"build-backend-dev\" \"build-frontend-dev\"",
+    "build-all-Dev": "concurrently \"build-backend-dev\" \"build-frontend-dev\"",
+    "build-backend-dev": "cd backend && npm run build-clean-watch && cd ..",
+    "build-frontend-dev": "cd frontend && npm run build-clean-watch && cd .."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JCSheeron/Arpio.git"
+  },
+  "keywords": [
+    "express",
+    "handlebars",
+    "javascript",
+    "material",
+    "material ui",
+    "react router",
+    "node",
+    "raspberry pi"
+  ],
+  "author": "JCSheeron",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JCSheeron/Arpio/issues"
+  },
+  "homepage": "https://github.com/JCSheeron/Arpio#readme",
+  "dependencies": {
+    "concurrently": "^5.3.0"
+  },
+  "devDependencies": {}
+}
