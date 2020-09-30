@@ -2,24 +2,24 @@
 var path = require('path');
 var webpack = require('webpack');
 
-const BUILD_DIR = path.join(__dirname, 'dist');
-const APP_DIR = path.join(__dirname, 'src');
+const PUBLIC_DIR = path.join(__dirname, 'dist');
+// const APP_DIR = path.join(__dirname, 'src');
 // var SASS_DIR = path.join(__dirname, 'sass');
 // var CSS_DIR = path.join(BUILD_DIR, 'css');
-const IMG_DIR = path.join(BUILD_DIR, 'img');
+const IMG_DIR = path.join(__dirname, 'img');
 
 // webpack config object
 var config = {
   mode: 'development',
   target: 'web', // compile for a browser
-  entry: { bpsMain: APP_DIR + '/index.js' },
+  entry: { bpsMain: path.join(PUBLIC_DIR, '/index.js') },
   output: {
-    // with lazy loading
-    path: BUILD_DIR,
+    // with lazy loading:wq
+    path: PUBLIC_DIR,
     filename: 'bpsMain.bundle-frontend.[hash].js',
     chunkFilename: '[name].[chunkhash].js', // otherwise same as filename with different hash
     // publicPath specified public URL of the output directory when referenced in browser
-    publicPath: '/' // load additional modules here
+    publicPath: '/' // load additional resources here
   },
   optimization: {
     splitChunks: {
@@ -27,7 +27,7 @@ var config = {
         commons: {
           // create a vendors chuck which contains all code from node_modules_
           test: /[\\/]node_modules[\\/]/,
-          name: 'vendors',
+          name: 'vendors.bundle',
           chunks: 'all'
         }
       }
@@ -62,10 +62,12 @@ var config = {
     ]
   },
   devServer: {
-    publicPath: '/dist/', // where bundles are served from
-    contentBase: APP_DIR, // only necessary to serve static files (not webpack). Can be an array of paths [path1, path2, ...]
+    publicPath: '/dist/', // where bundles are served from. Start and end with a /
+    contentBase: PUBLIC_DIR, // only necessary to serve static files (not webpack). Can be an array of paths [path1, path2, ...]
+    watchContentBase: true,
     compress: true, // files being sent to browser
     port: 9000, // default is 8080
+    overlay: { warnings: true, errors: true }, // overlay in browser when there are errors/warnings
     disableHostCheck: false, // default is true, but false is more secure
     /* optional headers
     headers: {

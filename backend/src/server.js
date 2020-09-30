@@ -9,21 +9,27 @@
 // The api rounter in ./api/index.js is used.
 // Static pages are set to be served from the dist path: server.use(express.static('dist'));
 //
-//
-import path from 'path';
-import config from './config';
-// import { inspect } from 'util'; // console.log of objects
 
-import apiRouter from './api'; // import the api router (./api/index.js)
+import path from 'path';
+// import { inspect } from 'util'; // console.log of objects
 // using npm for sass instead of webpack
 import sassMiddleware from 'node-sass-middleware';
 // express
 import express from 'express';
 // handlbars tempalte engine
 import hbs from 'express-handlebars';
+
+// BPS stuff
+// modules (type: module in package.json) need extension
+import config from '../config.js';
+import apiRouter from './api/index.js'; // import the api router (./api/index.js)
+import * as serverRender from './serverRender.js';
+
 // body parser
 // import bodyParser from 'body-parser';
 const server = express();
+
+//import App from '../../frontend/src/components/App';
 
 // body-parser at app top level to parse all incoming requests
 // server.use(bodyParser.json());
@@ -35,7 +41,7 @@ const server = express();
 
 // Use sass middleware with express
 // Note: Must go before express.static or it (sass?) won't work.
-// sass will take in /sass/style.scss (src file, extension is short for "sass css file") and create /css/style.css
+// sass will take in /sass/style.scss (src file, extension is short for 'sass css file') and create /css/style.css
 server.use(
   sassMiddleware({
     src: path.join(__dirname, 'sass'),
@@ -70,8 +76,6 @@ server.engine(
 
 // Handlebars view engine setup
 server.set('view engine', 'hbs');
-
-import * as serverRender from './serverRender';
 
 server.get('/', (req, res) => {
   //console.log('params in server.js');

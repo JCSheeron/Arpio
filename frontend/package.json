@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "install-frontend": "npm install",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist/vendors.bundle* dist/bpsMain.bundle*",
     "start": "webpack-dev-server --config webpack-frontend.config.js",
     "build": "webpack --config webpack-frontend.config.js -p",
     "build-dev": "webpack --config webpack-frontend.config.js --debug --devtool inline-source-map --output-pathinfo",

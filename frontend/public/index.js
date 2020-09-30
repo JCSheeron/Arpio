@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 // React Router that uses browser history to keep UI in sync with the URL
 import { BrowserRouter } from 'react-router-dom';
 
-import App from './components/App';
+import App from '../src/components/App';
 
 // ReactDOM.render(
 ReactDOM.hydrate(

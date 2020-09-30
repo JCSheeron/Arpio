@@ -14,7 +14,7 @@ const jsonParser = bodyParser.json();
 
 //  SIMULATED DATA FROM DATA FILE
 // simulated data from backend
-import data from '../data/testData1';
+import data from '../../data/testData1';
 
 // Do any coditioning of the read in data.
 // Get the data in to a a data object.
