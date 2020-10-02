@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
