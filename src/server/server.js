@@ -31,9 +31,10 @@ import * as serverRender from './serverRender.js';
 // set paths
 // sassMiddleware takes in sass in src dir and spit out css in dist dir
 const BUILD_DIR = path.resolve(__dirname, '../../dist');
-const SASS_DIR = path.resolve(__dirname, '../server/sass');
+const PUBLIC_DIR = path.resolve(__dirname, '../public');
+const SASS_DIR = path.resolve(__dirname, 'sass');
 const CSS_DIR = path.join(BUILD_DIR, 'css');
-const HBS_VIEWS_DIR = path.resolve(__dirname, '../client/views');
+const HBS_VIEWS_DIR = path.resolve(__dirname, '../views');
 const HBS_LAYOUTS_DIR = path.join(HBS_VIEWS_DIR, 'layouts/');
 const HBS_PARTIALS_DIR = path.join(HBS_VIEWS_DIR, 'partials/');
 const HBS_SHARED_PARTIALS_DIR = path.join(HBS_VIEWS_DIR, 'shared/'); // shared w/client
@@ -75,7 +76,6 @@ server.engine(
     defaultLayout: 'default', // default is main
     layoutsDir: HBS_LAYOUTS_DIR,
     partialsDir: [HBS_PARTIALS_DIR, HBS_SHARED_PARTIALS_DIR],
-    // partialsDir: ['partials', 'shared'],
     helpers: {
       toJSON: function(object) {
         return JSON.stringify(object);
@@ -103,10 +103,15 @@ server.get('/about.html', (req, res) => {
 });
 */
 
-// or even simpler, for static pages, you can do this
-// by specifying the path 'dist' in this case
-// and moving the about.html file to that directory
-server.use(express.static('dist'));
+// or even simpler ...
+//
+// For static pages, you can use express.static middleware do this
+// by specifying the path and putting static pages in that directory
+// Use the extensions option to specify extensions so they can be
+// left off the url -- Note: Do not include the period.
+console.log(`public: ${PUBLIC_DIR}`);
+server.use(express.static(PUBLIC_DIR, { extensions: ['html', 'htm'] }));
+// server.use(express.static('src/public', { extensions: ['html', 'htm'] }));
 
 server.get('/', (req, res) => {
   //console.log('params in server.js');
@@ -123,6 +128,7 @@ server.get('/', (req, res) => {
       // Render a view, passing local variables to the view
       res.render('shared/index123.hbs', {
         title: 'BPS Arpio',
+        // layout: path.join(HBS_LAYOUTS_DIR, 'arpioLayout'),
         layout: 'arpioLayout',
         initialMarkup,
         initialData

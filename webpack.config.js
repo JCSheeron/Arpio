@@ -8,11 +8,11 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const BUILD_DIR = path.resolve(__dirname, 'dist');
 const SOURCE_DIR = path.resolve(__dirname, 'src');
-const PUBLIC_DIR = path.join(SOURCE_DIR, 'client/public');
+const PUBLIC_DIR = path.join(SOURCE_DIR, 'public');
 // var SASS_DIR = path.join(__dirname, 'sass');
 // var CSS_DIR = path.join(BUILD_DIR, 'css');
 const IMG_DIR = path.join(SOURCE_DIR, 'img');
-const HBS_VIEWS_DIR = path.join(SOURCE_DIR, 'client/views');
+const HBS_VIEWS_DIR = path.join(SOURCE_DIR, 'views');
 const HBS_SHARED_VIEWS_DIR = path.join(HBS_VIEWS_DIR, 'shared');
 const HBS_PARTIALS_DIR = path.join(HBS_VIEWS_DIR, 'partials');
 const HBS_HELPERS_DIR = path.join(HBS_VIEWS_DIR, 'helpers');
@@ -52,7 +52,7 @@ var config = {
     // This is used for the client.  The handlebars loader (below) and the template
     // extension will trigger the use of handlebars over the default ejs.
     // Express rendering takes care of the server side templating, and will take the
-    // resulting template and embed it in the layout.
+    // resulting template from this plugin and embed it in the layout.
     new HtmlWebpackPlugin({
       // template to use
       template: path.join(HBS_VIEWS_DIR, 'index.hbs'),
