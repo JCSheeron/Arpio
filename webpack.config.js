@@ -8,10 +8,10 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const BUILD_DIR = path.resolve(__dirname, 'dist');
 const SOURCE_DIR = path.resolve(__dirname, 'src');
-const PUBLIC_DIR = path.join(SOURCE_DIR, 'public');
+const ASSETS_DIR = path.join(SOURCE_DIR, 'static');
 // var SASS_DIR = path.join(__dirname, 'sass');
 // var CSS_DIR = path.join(BUILD_DIR, 'css');
-const IMG_DIR = path.join(SOURCE_DIR, 'img');
+const IMG_DIR = path.join(ASSETS_DIR, 'img');
 const HBS_VIEWS_DIR = path.join(SOURCE_DIR, 'views');
 const HBS_SHARED_VIEWS_DIR = path.join(HBS_VIEWS_DIR, 'shared');
 const HBS_PARTIALS_DIR = path.join(HBS_VIEWS_DIR, 'partials');
@@ -116,7 +116,7 @@ var config = {
   },
   devServer: {
     publicPath: '/bundles/', // where bundles are served from. Start and end with a /
-    contentBase: PUBLIC_DIR, // only necessary to serve static files (not webpack). Can be an array of paths [path1, path2, ...]
+    contentBase: ASSETS_DIR, // only necessary to serve static files (not webpack). Can be an array of paths [path1, path2, ...]
     watchContentBase: true,
     compress: true, // files being sent to browser
     port: 9000, // default is 8080

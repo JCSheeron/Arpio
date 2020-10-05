@@ -31,7 +31,7 @@ import * as serverRender from './serverRender.js';
 // set paths
 // sassMiddleware takes in sass in src dir and spit out css in dist dir
 const BUILD_DIR = path.resolve(__dirname, '../../dist');
-const PUBLIC_DIR = path.resolve(__dirname, '../public');
+const ASSETS_DIR = path.resolve(__dirname, '../static');
 const SASS_DIR = path.resolve(__dirname, 'sass');
 const CSS_DIR = path.join(BUILD_DIR, 'css');
 const HBS_VIEWS_DIR = path.resolve(__dirname, '../views');
@@ -109,8 +109,8 @@ server.get('/about.html', (req, res) => {
 // by specifying the path and putting static pages in that directory
 // Use the extensions option to specify extensions so they can be
 // left off the url -- Note: Do not include the period.
-console.log(`public: ${PUBLIC_DIR}`);
-server.use(express.static(PUBLIC_DIR, { extensions: ['html', 'htm'] }));
+console.log(`public: ${ASSETS_DIR}`);
+server.use(express.static(ASSETS_DIR, { extensions: ['html', 'htm'] }));
 // server.use(express.static('src/public', { extensions: ['html', 'htm'] }));
 
 server.get('/', (req, res) => {
