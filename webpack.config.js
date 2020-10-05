@@ -13,13 +13,14 @@ const PUBLIC_DIR = path.join(SOURCE_DIR, 'client/public');
 // var CSS_DIR = path.join(BUILD_DIR, 'css');
 const IMG_DIR = path.join(SOURCE_DIR, 'img');
 const HBS_VIEWS_DIR = path.join(SOURCE_DIR, 'client/views');
+const HBS_SHARED_VIEWS_DIR = path.join(HBS_VIEWS_DIR, 'shared');
 const HBS_PARTIALS_DIR = path.join(HBS_VIEWS_DIR, 'partials');
 const HBS_HELPERS_DIR = path.join(HBS_VIEWS_DIR, 'helpers');
 
 // webpack config object
 var config = {
   mode: 'development',
-  entry: { bpsMain: SOURCE_DIR + 'client/index.js' },
+  entry: { bpsMain: path.join(SOURCE_DIR, 'client/index.js') },
   output: {
     path: path.join(BUILD_DIR, '/bundles'),
     // publicPath specified public URL of the output directory when referenced in browser
@@ -30,9 +31,7 @@ var config = {
     // It is is calc'd based on extracted content, not by the full chunk content
     // Hashes allow slicing so [hash:8] will give the first 8 characters.
     filename: 'bpsMain.bundle.[hash].js',
-    chunkFilename: '[name].[chunkhash].js', // otherwise same as filename with different hash
-    // publicPath specified public URL of the output directory when referenced in browser
-    publicPath: '/' // load additional modules here
+    chunkFilename: '[name].bundle.[chunkhash].js' // otherwise same as filename with different hash
   },
   optimization: {
     splitChunks: {
@@ -48,28 +47,30 @@ var config = {
   },
   devtool: 'eval-source-map',
   plugins: [
-    // HtmlWebpackPlugin inserts the bundled scripts into the specfied by
+    // HtmlWebpackPlugin inserts the bundled scripts into the file specfied by
     // filename, using the specified template.
     // This is used for the client.  The handlebars loader (below) and the template
     // extension will trigger the use of handlebars over the default ejs.
     // Express rendering takes care of the server side templating, and will take the
     // resulting template and embed it in the layout.
     new HtmlWebpackPlugin({
-      title: 'Generic Title',
       // template to use
       template: path.join(HBS_VIEWS_DIR, 'index.hbs'),
+      //inject: false, // true or 'body', or 'head' or false
       // output file name -- used by express and inserted into a layout
-      filename: path.join(BUILD_DIR, 'index.hbs')
+      filename: path.join(HBS_SHARED_VIEWS_DIR, '/index123.hbs'),
+      showErrors: true
     }),
     new webpack.HotModuleReplacementPlugin()
   ],
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        //test: /\.(js|jsx)$/,
+        test: /\.jsx?$/,
         // include: APP_DIR,
-        exclude: /node_modules/,
         loader: 'babel-loader',
+        exclude: /node_modules/,
         options: {
           // babel.config.json will be used by default
           // if false, put the babelrc stuff here
@@ -79,12 +80,15 @@ var config = {
           //plugins: ['syntax-dynamic-import'] // needed for lazy loading
         }
       },
+      // The handlebars-loader will compile Handlebars templates into
+      // a function, which will be imported into the javascript when you
+      // import a Handlebars file.
       {
         test: /\.hbs$/,
         loader: 'handlebars-loader',
         options: {
           helperDirs: [HBS_HELPERS_DIR],
-          partialDirs: [HBS_PARTIALS_DIR],
+          partialDirs: [HBS_PARTIALS_DIR, HBS_SHARED_VIEWS_DIR],
           debug: false
         }
       },

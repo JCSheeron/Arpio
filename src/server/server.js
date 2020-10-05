@@ -10,29 +10,33 @@
 // Static pages are set to be served from the dist path: server.use(express.static('dist'));
 //
 
-const path = require('path');
+import path from 'path';
 // import { inspect } from 'util'; // console.log of objects
 // using npm for sass instead of webpack
-const sassMiddleware = require('node-sass-middleware');
+import sassMiddleware from 'node-sass-middleware';
 // express
-const express = require('express');
-// handlbars tempalte engine
-const hbs = require('express-handlebars');
+import express from 'express';
+
+// express-handlebars template engine
+import hbs from 'express-handlebars';
+// handlbars hbs template engine -- alternative to express-handlebars
+//import hbs from 'hbs';
 
 // BPS stuff
 // modules (type: module in package.json) need extension
-const config = require('../config.js');
-const apiRouter = require('./api/index.js'); // import the api router (./api/index.js)
-const serverRender = require('./serverRender.js');
+import config from '../../config';
+import apiRouter from './api/index.js'; // import the api router (./api/index.js)
+import * as serverRender from './serverRender.js';
 
 // set paths
 // sassMiddleware takes in sass in src dir and spit out css in dist dir
-const SASS_DIR = path.resolve(__dirname, 'src/sass');
-const CSS_DIR = path.resolve(__dirname, 'dist/css');
-const HBS_VIEWS_DIR = path.resolve(__dirname, '..', '/frontend/views');
-const HBS_VIEWS_SHARED_DIR = path.resolve(HBS_VIEWS_DIR, 'shared');
-const HBS_LAYOUTS_DIR = path.resolve(HBS_VIEWS_DIR, 'layouts');
-const HBS_PARTIALS_DIR = path.resolve(HBS_VIEWS_DIR, 'partials');
+const BUILD_DIR = path.resolve(__dirname, '../../dist');
+const SASS_DIR = path.resolve(__dirname, '../server/sass');
+const CSS_DIR = path.join(BUILD_DIR, 'css');
+const HBS_VIEWS_DIR = path.resolve(__dirname, '../client/views');
+const HBS_LAYOUTS_DIR = path.join(HBS_VIEWS_DIR, 'layouts/');
+const HBS_PARTIALS_DIR = path.join(HBS_VIEWS_DIR, 'partials/');
+const HBS_SHARED_PARTIALS_DIR = path.join(HBS_VIEWS_DIR, 'shared/'); // shared w/client
 //
 // body parser
 // import bodyParser from 'body-parser';
@@ -60,33 +64,49 @@ server.use(
   })
 );
 
-// Set up template engine to
-// server render javascript fronend components.
-// By default express will look for templates
-// in a views folder.
-
-// express-handlebars assumes the /views folder. Take this
-// a step further by specifying subfolders for partials and layouts.
-// Other pages can go directly into views.
+// Set up the handlebars template engine and specify the extension,
+// default layout, layout and partials dirs, and you can add helpers here too.
 // Note the use of a second partial directory for partials to be shared
 // with the front end.
 server.engine(
   'hbs',
   hbs({
-    extname: 'hbs', // file extension. default is handlebars
+    extname: '.hbs', // file extension. default is handlebars
     defaultLayout: 'default', // default is main
-    layoutsdDir: HBS_LAYOUTS_DIR,
-    partialsDir: [HBS_PARTIALS_DIR, HBS_VIEWS_SHARED_DIR],
+    layoutsDir: HBS_LAYOUTS_DIR,
+    partialsDir: [HBS_PARTIALS_DIR, HBS_SHARED_PARTIALS_DIR],
+    // partialsDir: ['partials', 'shared'],
     helpers: {
-      toJSON: function (object) {
+      toJSON: function(object) {
         return JSON.stringify(object);
       }
     }
   })
 );
-
-// Handlebars view engine setup
+// Set the view folder to use.  Express will default to using the
+// 'views' directory in the application root directory.
+// Note that by default, the partials and layouts folder are
+// relateive to the view folder, these may need to be adjusted below.
+// Note, that when changing the extension above, the server.engine
+// line above needs to go above the two lines below.
 server.set('view engine', 'hbs');
+server.set('views', HBS_VIEWS_DIR);
+
+// Set up routing to static pages.
+// about route
+// You can do this, and manually plumb the response...
+/*
+server.get('/about.html', (req, res) => {
+  fs.readFile('./about.html', (err, data) => {
+    res.send(data.toString());
+  });
+});
+*/
+
+// or even simpler, for static pages, you can do this
+// by specifying the path 'dist' in this case
+// and moving the about.html file to that directory
+server.use(express.static('dist'));
 
 server.get('/', (req, res) => {
   //console.log('params in server.js');
@@ -96,12 +116,12 @@ server.get('/', (req, res) => {
   serverRender
     .baseDataRender() // promise from serverRender axios get call
     .then(({ initialMarkup, initialData }) => {
-      //console.log('after serverRender');
+      console.log('after serverRender');
       //console.log(
       //  inspect(res, { showHidden: false, depth: null, colors: true })
       //);
       // Render a view, passing local variables to the view
-      res.render('index', {
+      res.render('shared/index123.hbs', {
         title: 'BPS Arpio',
         layout: 'arpioLayout',
         initialMarkup,
@@ -138,21 +158,6 @@ server.get(['/events', '/events/:eventId'], (req, res) => {
       //res.send(error);
     });
 });
-
-// about route
-// You can do this, and manually plumb the response...
-/*
-server.get('/about.html', (req, res) => {
-  fs.readFile('./about.html', (err, data) => {
-    res.send(data.toString());
-  });
-});
-*/
-
-// or even simpler, for static pages, you can do this
-// by specifying the path 'dist' in this case
-// and moving the about.html file to that directory
-server.use(express.static('dist'));
 
 // first arg is the route, second is the apiRouter we imported above
 server.use('/api', apiRouter); // use the api router we made (api/index.js)

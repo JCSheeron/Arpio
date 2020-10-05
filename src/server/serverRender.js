@@ -8,9 +8,9 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 
-import App from '../../frontend/src/components/App';
+import App from '../client/components/App';
 
-import config from '../config';
+import config from '../../config';
 import axios from 'axios';
 
 // import { inspect } from 'util'; // console.log of objects

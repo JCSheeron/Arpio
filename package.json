@@ -6,11 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rimraf dist/bundles/*",
-    "start": "nodemon --exec babel-node src/server/server.js --ignore dist/",
+    "start-server": "nodemon --exec babel-node src/server/server.js --ignore dist/",
+    "start-client": "webpack-dev-server",
     "build": "webpack -p",
     "build-dev": "webpack --debug --output-pathinfo",
-    "build-watch": "webpack --watch --debug --output-pathinfo",
-    "build-clean-watch": "npm run clean && npm run build-watch"
+    "build-watch": "webpack --watch --progress --debug --output-pathinfo",
+    "clean-build-watch": "npm run clean && npm run build-watch"
   },
   "repository": {
     "type": "git",
@@ -51,7 +52,6 @@
     "clsx": "^1.1.1",
     "date-fns": "^2.16.1",
     "express": "^4.17.1",
-    "express-handlebars": "^5.1.0",
     "node-sass-middleware": "^0.11.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
@@ -81,10 +81,12 @@
     "@babel/plugin-transform-react-jsx": "^7.10.4",
     "@babel/preset-env": "^7.9.5",
     "@babel/preset-react": "^7.9.4",
+    "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "eslint": "^7.10.0",
-    "eslint-plugin-react": "^7.21.2",
+    "eslint-plugin-react": "^7.21.3",
     "eslint-plugin-react-hooks": "^4.1.2",
+    "express-handlebars": "^5.1.0",
     "file-loader": "^6.1.0",
     "handlebars": "^4.7.6",
     "handlebars-loader": "^1.7.1",

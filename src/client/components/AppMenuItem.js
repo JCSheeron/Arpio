@@ -44,8 +44,6 @@ const AppMenuItem = (props) => {
   const MenuLink = React.useMemo(
     () =>
       React.forwardRef((itemProps, ref) => {
-        console.log('forwardRef');
-        console.log(itemProps);
         return <NavLink to={link} ref={ref} {...itemProps} />;
       }),
     [link]
