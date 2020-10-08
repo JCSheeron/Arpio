@@ -117,7 +117,7 @@ server.get('/', (req, res) => {
   // console.log('params in server.js');
   // console.log(inspect(req, { showHidden: false, depth: 0, colors: true }));
   serverRender
-    .testDataRender() // promise from serverRender axios get call
+    .baseDataRender() // promise from serverRender axios get call
     .then(({ initialMarkup, initialData }) => {
       console.log('after serverRender');
       console.log('initialData');

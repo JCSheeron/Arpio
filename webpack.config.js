@@ -23,7 +23,7 @@ var config = {
   entry: { bpsMain: path.join(SOURCE_DIR, 'client/index.js') },
   output: {
     path: path.join(BUILD_DIR, '/bundles'),
-    // publicPath specified public URL of the output directory when referenced in browser
+    // publicPath specifies public URL of the output directory when referenced in browser
     publicPath: '/', // load additional modules here
     // hash: corresponds to a build.  Each chunk same hash across a build
     // chunkhash: each entry point has its own hash.
@@ -119,6 +119,7 @@ var config = {
     ]
   },
   devServer: {
+    // usually dev server publicPath is the same as output.publicPath
     publicPath: '/', // where bundles are served from. Start and end with a /
     contentBase: ASSETS_DIR, // only necessary to serve static files (not webpack). Can be an array of paths [path1, path2, ...]
     watchContentBase: true,
