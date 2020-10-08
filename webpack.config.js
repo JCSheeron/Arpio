@@ -32,6 +32,7 @@ var config = {
     // Hashes allow slicing so [hash:8] will give the first 8 characters.
     filename: 'bpsMain.bundle.[hash].js',
     chunkFilename: '[name].bundle.[chunkhash].js' // otherwise same as filename with different hash
+    //sourceMapFilename: ''
   },
   optimization: {
     splitChunks: {
@@ -45,8 +46,11 @@ var config = {
       }
     }
   },
-  devtool: 'eval-source-map',
+  // using SourceMapDevToolPlugin instead of devtool (related)
+  devtool: 'source-map',
+  // devtool: false,
   plugins: [
+    //new webpack.SourceMapDevToolPlugin({}),
     // HtmlWebpackPlugin inserts the bundled scripts into the file specfied by
     // filename, using the specified template.
     // This is used for the client.  The handlebars loader (below) and the template
@@ -115,9 +119,16 @@ var config = {
     ]
   },
   devServer: {
-    publicPath: '/bundles/', // where bundles are served from. Start and end with a /
+    publicPath: '/', // where bundles are served from. Start and end with a /
     contentBase: ASSETS_DIR, // only necessary to serve static files (not webpack). Can be an array of paths [path1, path2, ...]
     watchContentBase: true,
+    // set up proxy so browser reqeusts are forwarded to be handled by express
+    index: '', // specify to a falsy string enable root proxying
+    proxy: {
+      // context: ['/auth', '/api'] // for selective proxying for example
+      context: () => true, // forward everyting
+      target: 'http://localhost:8080/'
+    },
     compress: true, // files being sent to browser
     port: 9000, // default is 8080
     overlay: { warnings: true, errors: true }, // overlay in browser when there are errors/warnings

@@ -11,7 +11,7 @@
 //
 
 import path from 'path';
-// import { inspect } from 'util'; // console.log of objects
+import { inspect } from 'util'; // console.log of objects
 // using npm for sass instead of webpack
 import sassMiddleware from 'node-sass-middleware';
 // express
@@ -19,8 +19,6 @@ import express from 'express';
 
 // express-handlebars template engine
 import hbs from 'express-handlebars';
-// handlbars hbs template engine -- alternative to express-handlebars
-//import hbs from 'hbs';
 
 // BPS stuff
 // modules (type: module in package.json) need extension
@@ -109,25 +107,30 @@ server.get('/about.html', (req, res) => {
 // by specifying the path and putting static pages in that directory
 // Use the extensions option to specify extensions so they can be
 // left off the url -- Note: Do not include the period.
-console.log(`public: ${ASSETS_DIR}`);
+//
+// Tell express where to get the bundled assets from
+server.use(express.static(path.join(BUILD_DIR, '/bundles')));
+// Tell it where to get other static pages from.
 server.use(express.static(ASSETS_DIR, { extensions: ['html', 'htm'] }));
-// server.use(express.static('src/public', { extensions: ['html', 'htm'] }));
 
 server.get('/', (req, res) => {
-  //console.log('params in server.js');
-  //console.log(
-  //  inspect(req.params, { showHidden: false, depth: null, colors: true })
-  //);
+  // console.log('params in server.js');
+  // console.log(inspect(req, { showHidden: false, depth: 0, colors: true }));
   serverRender
-    .baseDataRender() // promise from serverRender axios get call
+    .testDataRender() // promise from serverRender axios get call
     .then(({ initialMarkup, initialData }) => {
       console.log('after serverRender');
-      //console.log(
-      //  inspect(res, { showHidden: false, depth: null, colors: true })
-      //);
+      console.log('initialData');
+      console.log(
+        inspect(initialData, { showHidden: false, depth: 1, colors: true })
+      );
+      console.log('initialMarkup');
+      console.log(
+        inspect(initialMarkup, { showHidden: false, depth: 0, colors: true })
+      );
       // Render a view, passing local variables to the view
       res.render('shared/index123.hbs', {
-        title: 'BPS Arpio',
+        title: 'BPS Arpio3p0',
         // layout: path.join(HBS_LAYOUTS_DIR, 'arpioLayout'),
         layout: 'arpioLayout',
         initialMarkup,
@@ -135,8 +138,9 @@ server.get('/', (req, res) => {
       });
     })
     .catch((error) => {
+      console.error('Bad / Req in server.js');
       console.error(error);
-      res.status(404).send('Bad Request server.js');
+      res.status(404).send(`Bad Request server.js: ${error}`);
       //res.send(error);
     });
 });

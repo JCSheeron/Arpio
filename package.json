@@ -7,10 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rimraf dist/bundles/*",
     "start-server": "nodemon --exec babel-node src/server/server.js --ignore dist/",
-    "start-client": "webpack-dev-server",
+    "start-client": "webpack-dev-server --progress",
     "build": "webpack -p",
-    "build-dev": "webpack --debug --output-pathinfo",
-    "build-watch": "webpack --watch --progress --debug --output-pathinfo",
+    "build-dev": "webpack --progress --debug --output-pathinfo",
+    "build-watch": "webpack --progress --watch --debug --output-pathinfo",
     "clean-build-watch": "npm run clean && npm run build-watch"
   },
   "repository": {
