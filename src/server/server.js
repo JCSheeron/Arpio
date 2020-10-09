@@ -71,7 +71,7 @@ server.engine(
   'hbs',
   hbs({
     extname: '.hbs', // file extension. default is handlebars
-    defaultLayout: 'default', // default is main
+    defaultLayout: 'layoutDefault', // default is main
     layoutsDir: HBS_LAYOUTS_DIR,
     partialsDir: [HBS_PARTIALS_DIR, HBS_SHARED_PARTIALS_DIR],
     helpers: {
@@ -119,27 +119,17 @@ server.get('/', (req, res) => {
   serverRender
     .baseDataRender() // promise from serverRender axios get call
     .then(({ initialMarkup, initialData }) => {
-      console.log('after serverRender');
-      console.log('initialData');
-      console.log(
-        inspect(initialData, { showHidden: false, depth: 1, colors: true })
-      );
-      console.log('initialMarkup');
-      console.log(
-        inspect(initialMarkup, { showHidden: false, depth: 0, colors: true })
-      );
-      // Render a view, passing local variables to the view
-      res.render('shared/index123.hbs', {
-        title: 'BPS Arpio3p0',
+      // Render a view (output from WP that includes bundled scripts,
+      // passing local variables to the view
+      res.render('shared/viewAppClientWp.hbs', {
+        title: 'BPS Arpio',
         // layout: path.join(HBS_LAYOUTS_DIR, 'arpioLayout'),
-        layout: 'arpioLayout',
+        layout: 'layoutHome',
         initialMarkup,
         initialData
       });
     })
     .catch((error) => {
-      console.error('Bad / Req in server.js');
-      console.error(error);
       res.status(404).send(`Bad Request server.js: ${error}`);
       //res.send(error);
     });

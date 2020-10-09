@@ -15,12 +15,12 @@ import {
   mdiExport
 } from '@mdi/js';
 
-import AppMenuItem from './AppMenuItem';
+import MenuItem from './MenuItem';
 
 // You can use a function if the Icon component has a lot of props, and use
-// the function below in the appMenuItems.
+// the function below in the menuItems.
 // const IconDashboard = (props) => <Icon path={mdiTabletDashboard} size={1.5} />;
-const appMenuItems = [
+const menuItems = [
   {
     name: 'Home',
     link: '/',
@@ -67,7 +67,7 @@ const appMenuItems = [
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
-  appMenu: {
+  menu: {
     width: '100%'
   },
   navList: {
@@ -81,17 +81,17 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const AppMenu = (props) => {
+const Menu = (props) => {
   // use hook from makeStyles to bring in styles
   const classes = useStyles();
 
   return (
-    <List component='nav' className={classes.appMenu} disablePadding>
-      {appMenuItems.map((item, index) => (
-        <AppMenuItem {...item} key={index} />
+    <List component='nav' className={classes.menu} disablePadding>
+      {menuItems.map((item, index) => (
+        <MenuItem {...item} key={index} />
       ))}
     </List>
   );
 };
 
-export default AppMenu;
+export default Menu;

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 // React Router that uses browser history to keep UI in sync with the URL
 import { BrowserRouter } from 'react-router-dom';
 
-import App from './components/App';
+import Main from './components/Main';
 
 // ReactDOM.render(
 ReactDOM.hydrate(
@@ -13,7 +13,7 @@ ReactDOM.hydrate(
   // is why the server render returned an object with the
   // rendered data and the raw data we stored in window.
   <BrowserRouter>
-    <App initialData={window.initialData} />
+    <Main initialData={window.initialData} />
   </BrowserRouter>,
   document.getElementById('root')
 );

@@ -8,7 +8,7 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router';
 
-import App from '../client/components/App';
+import Main from '../client/components/Main';
 
 import config from '../../config';
 import axios from 'axios';
@@ -40,8 +40,8 @@ const getApiChannelUrl = (channelId) => {
 
 const getInitialData = (apiData) => {
   // Return the events as an object.
-  // Use an object consistent with App state variables.
-  // App state has this structure
+  // Use an object consistent with Main state variables.
+  // Main state has this structure
   // { arpiData:
   //    currentChannelId,
   //    currentArpiEventId,
@@ -67,20 +67,6 @@ const getInitialData = (apiData) => {
 
 // Fetch the "base" data from the api
 // Wrap the axios promise in a function that returns the promise
-export const testDataRender = () => {
-  return axios.get(getApiUrl()).then((resp) => {
-    const initialData = getInitialData(resp.data);
-    // const initialData = { channel: 4 };
-    return {
-      // Return markup from server, and the data itself.
-      // The data allows the client to store it, and render
-      // it locally without an initial ajax call back to the server
-      initialMarkup: ReactDOMServer.renderToString(<div>HelloDadio</div>),
-      //initialData: initialData // can be decomposed into just initialData
-      initialData // can be decomposed into just initialData
-    };
-  });
-};
 export const baseDataRender = () => {
   return axios.get(getApiUrl()).then((resp) => {
     const initialData = getInitialData(resp.data);
@@ -90,7 +76,7 @@ export const baseDataRender = () => {
       // it locally without an initial ajax call back to the server
       initialMarkup: ReactDOMServer.renderToString(
         <StaticRouter>
-          <App initialData={initialData} />
+          <Main initialData={initialData} />
         </StaticRouter>
       ),
       //initialData: initialData // can be decomposed into just initialData
@@ -110,7 +96,7 @@ export const eventListRender = (eventId) => {
       // it locally without an initial ajax call back to the server
       initialMarkup: ReactDOMServer.renderToString(
         <StaticRouter>
-          <App initialData={initialData} />
+          <Main initialData={initialData} />
         </StaticRouter>
       ),
       //initialData: initialData // can be decomposed into just initialData
@@ -130,7 +116,7 @@ export const channelListRender = (channelId) => {
       // it locally without an initial ajax call back to the server
       initialMarkup: ReactDOMServer.renderToString(
         <StaticRouter>
-          <App initialData={initialData} />
+          <Main initialData={initialData} />
         </StaticRouter>
       ),
       //initialData: initialData // can be decomposed into just initialData

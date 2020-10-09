@@ -12,7 +12,7 @@ import { inspect } from 'util'; //console.log of objects
 
 // components
 import HeaderComponent from './HeaderComponent';
-import AppMenu from './AppMenu';
+import Menu from './Menu';
 import EventList from './EventList';
 import Event from './Event';
 
@@ -82,7 +82,7 @@ const Channels = () => (
   </div>
 );
 
-const App = (props) => {
+const Main = (props) => {
   // state variables
   // Init using inital data properties
   const [arpiData, setArpiData] = useState(props.initialData.arpiData);
@@ -97,7 +97,7 @@ const App = (props) => {
   // display the event, otherwise display the event list
   //if (this.state.currentEventId) {
   //  //console.log(
-  //  //  `App.js this.currentEvent:  ${inspect(this.currentEvent(), {
+  //  //  `Main.js this.currentEvent:  ${inspect(this.currentEvent(), {
   //  //    showHidden: false,
   //  //    depth: null,
   //  //    colors: false
@@ -125,10 +125,10 @@ const App = (props) => {
     // render using currentContent method
     // which conditionally looks at eventId state to know
     // how to render
-    <div className={clsx('App', classes.root)}>
+    <div className={clsx('Main', classes.root)}>
       <CssBaseline />
       <Drawer variant='permanent' classes={{ paper: classes.drawerPaper }}>
-        <AppMenu />
+        <Menu />
       </Drawer>
       <main className={classes.content}>
         <Container maxWidth='lg' className={classes.container}>
@@ -159,11 +159,11 @@ const App = (props) => {
 };
 
 // set up props
-App.propTypes = {
+Main.propTypes = {
   initialData: PropTypes.object.isRequired
 };
 
-export default App;
+export default Main;
 
 /*
           <Switch>

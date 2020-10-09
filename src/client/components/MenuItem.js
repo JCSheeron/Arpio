@@ -18,7 +18,7 @@ import IconExpandMore from '@material-ui/icons/ExpandMore';
 // import { AccessAlarm } from '@material-ui/icons';
 
 // React runtime PropTypes
-export const AppMenuItemPropTypes = {
+export const MenuItemPropTypes = {
   name: PropTypes.string.isRequired,
   link: PropTypes.string,
   icon: PropTypes.element,
@@ -26,7 +26,7 @@ export const AppMenuItemPropTypes = {
   divider: PropTypes.bool
 };
 
-const AppMenuItem = (props) => {
+const MenuItem = (props) => {
   const { name, icon, link, divider, items = [] } = props;
   const classes = useStyles();
   const isExpandable = items && items.length > 0;
@@ -96,7 +96,7 @@ const AppMenuItem = (props) => {
       <Divider />
       <List component='div' disablePadding>
         {items.map((item, index) => (
-          <AppMenuItem {...item} key={index} />
+          <MenuItem {...item} key={index} />
         ))}
       </List>
     </Collapse>
@@ -110,7 +110,7 @@ const AppMenuItem = (props) => {
   );
 };
 
-AppMenuItem.propTypes = AppMenuItemPropTypes;
+MenuItem.propTypes = MenuItemPropTypes;
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -121,4 +121,4 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-export default AppMenuItem;
+export default MenuItem;

@@ -20,7 +20,7 @@ const HBS_HELPERS_DIR = path.join(HBS_VIEWS_DIR, 'helpers');
 // webpack config object
 var config = {
   mode: 'development',
-  entry: { bpsMain: path.join(SOURCE_DIR, 'client/index.js') },
+  entry: { bpsMain: path.join(SOURCE_DIR, 'client/appClient.js') },
   output: {
     path: path.join(BUILD_DIR, '/bundles'),
     // publicPath specifies public URL of the output directory when referenced in browser
@@ -59,10 +59,10 @@ var config = {
     // resulting template from this plugin and embed it in the layout.
     new HtmlWebpackPlugin({
       // template to use
-      template: path.join(HBS_VIEWS_DIR, 'index.hbs'),
+      template: path.join(HBS_VIEWS_DIR, 'viewAppClient.hbs'),
       //inject: false, // true or 'body', or 'head' or false
       // output file name -- used by express and inserted into a layout
-      filename: path.join(HBS_SHARED_VIEWS_DIR, '/index123.hbs'),
+      filename: path.join(HBS_SHARED_VIEWS_DIR, '/viewAppClientWp.hbs'), // wp = webpack
       showErrors: true
     }),
     new webpack.HotModuleReplacementPlugin()
