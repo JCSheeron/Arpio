@@ -1,6 +1,6 @@
-import react from 'react';
+import React, { Component } from 'react';
 
-Home = (props) => {
+const Home = (props) => {
   return (
     <div className='Home'>
       <h2>Home Page</h2>
@@ -18,4 +18,3 @@ Home = (props) => {
 };
 
 export default Home;
-

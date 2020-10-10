@@ -1,6 +1,6 @@
-import react from 'react';
+import React, { Component } from 'react';
 
-Inputs = (props) => {
+const Inputs = (props) => {
   return (
     <div className='Inputs'>
       <h2>Inputs Page</h2>

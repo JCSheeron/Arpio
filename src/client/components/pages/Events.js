@@ -1,6 +1,6 @@
-import react from 'react';
+import React, { Component } from 'react';
 
-Events = (props) => {
+const Events = (props) => {
   return (
     <div className='Events'>
       <h2>Events Page</h2>

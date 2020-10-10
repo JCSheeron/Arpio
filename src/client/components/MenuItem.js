@@ -37,10 +37,13 @@ const MenuItem = (props) => {
   };
 
   // MenuLink is a functional component that returns a react router Link.
-  // The return is constant (via useMemo) unless the "to" changes. This is to
-  // prevent re-rendering problems with passing custom components to a
-  // react ListItem.
-  // forwardRef passes the props and ref to the child Link from the ListItem.
+  // The NavLink "to" prop needs to match the path specified in the Route
+  // element in Main.js
+  // The return is constant (via useMemo) unless the "to" link changes.
+  // This is to prevent re-rendering problems with passing custom components
+  // to a react ListItem.
+  // forwardRef passes the props and refs of MenuItemRoot to the
+  // NavLink child of MenuLink.
   const MenuLink = React.useMemo(
     () =>
       React.forwardRef((itemProps, ref) => {
@@ -54,7 +57,7 @@ const MenuItem = (props) => {
     if (!link || typeof link !== 'string') {
       return (
         <ListItem
-          button
+          button // component type defaults to div when button is true
           className={classes.menuItem}
           divider={divider}
           onClick={handleClick}>

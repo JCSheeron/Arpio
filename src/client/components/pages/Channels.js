@@ -1,6 +1,6 @@
-import react from 'react';
+import React, { Component } from 'react';
 
-Channels = (props) => {
+const Channels = (props) => {
   return (
     <div className='Channels'>
       <h2>Channels Page</h2>

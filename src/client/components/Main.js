@@ -11,10 +11,18 @@ import Typography from '@material-ui/core/Typography';
 import { inspect } from 'util'; //console.log of objects
 
 // components
-import HeaderComponent from './HeaderComponent';
 import Menu from './Menu';
-import EventList from './EventList';
-import Event from './Event';
+// import HeaderComponent from './HeaderComponent';
+// import EventList from './EventList';
+// import Event from './Event';
+
+// pages
+import Home from './pages/Home';
+import Dashboard from './pages/Dashboard';
+import Events from './pages/Events';
+import Channels from './pages/Channels';
+import Inputs from './pages/Inputs';
+import Outputs from './pages/Outputs';
 
 // import api
 import * as api from '../api';
@@ -59,29 +67,6 @@ const onPopState = (handler) => {
 };
 */
 
-const Home = () => (
-  <div>
-    <h2>HomeRouted</h2>
-  </div>
-);
-
-const Dashboard = () => (
-  <div>
-    <h2>DashboardRouted</h2>
-  </div>
-);
-
-const Events = () => (
-  <div>
-    <h2>EventsRouted</h2>
-  </div>
-);
-const Channels = () => (
-  <div>
-    <h2>ChannelsRouted</h2>
-  </div>
-);
-
 const Main = (props) => {
   // state variables
   // Init using inital data properties
@@ -122,9 +107,6 @@ const Main = (props) => {
   // };
 
   return (
-    // render using currentContent method
-    // which conditionally looks at eventId state to know
-    // how to render
     <div className={clsx('Main', classes.root)}>
       <CssBaseline />
       <Drawer variant='permanent' classes={{ paper: classes.drawerPaper }}>
@@ -133,7 +115,7 @@ const Main = (props) => {
       <main className={classes.content}>
         <Container maxWidth='lg' className={classes.container}>
           <Switch>
-            <Route exact path='/'>
+            <Route exact path={['/', '/home']}>
               <Home />
             </Route>
             <Route path='/dashboard'>
@@ -142,14 +124,14 @@ const Main = (props) => {
             <Route path='/events'>
               <Events />
             </Route>
-            <Route path='/channels'>
+            <Route exact path='/channels'>
               <Channels />
             </Route>
             <Route path='/channels/inputs'>
-              <Channels />
+              <Inputs />
             </Route>
             <Route path='/channels/outputs'>
-              <Channels />
+              <Outputs />
             </Route>
           </Switch>
         </Container>
@@ -164,26 +146,3 @@ Main.propTypes = {
 };
 
 export default Main;
-
-/*
-          <Switch>
-            <Route exact path='/'>
-              <Home />
-            </Route>
-            <Route path='/dashboard'>
-              <Dashboard />
-            </Route>
-            <Route path='/events'>
-              <Events />
-            </Route>
-            <Route path='/channels'>
-              <Channels />
-            </Route>
-            <Route path='/channels/inputs'>
-              <Channels />
-            </Route>
-            <Route path='/channels/outputs'>
-              <Channels />
-            </Route>
-          </Switch>
-          */

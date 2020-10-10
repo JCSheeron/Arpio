@@ -113,7 +113,7 @@ server.use(express.static(path.join(BUILD_DIR, '/bundles')));
 // Tell it where to get other static pages from.
 server.use(express.static(ASSETS_DIR, { extensions: ['html', 'htm'] }));
 
-server.get('/', (req, res) => {
+server.get(['/', '/home'], (req, res) => {
   // console.log('params in server.js');
   // console.log(inspect(req, { showHidden: false, depth: 0, colors: true }));
   serverRender
@@ -130,34 +130,34 @@ server.get('/', (req, res) => {
       });
     })
     .catch((error) => {
-      res.status(404).send(`Bad Request server.js: ${error}`);
+      res.status(404).send(`Bad Request WTF server.js: ${error}`);
       //res.send(error);
     });
 });
 
-server.get(['/events', '/events/:eventId'], (req, res) => {
-  // console.log(`eventId in server.js: ${req.params.eventId}`);
-  serverRender
-    .eventListRender(req.params.eventId) // promise from serverRender axios get call
-    .then(({ initialMarkup, initialData }) => {
-      //console.log('after serverRender');
-      //console.log(
-      //  inspect(initialData, { showHidden: false, depth: null, colors: true })
-      //);
-      // Render a view, passing local variables to the view
-      res.render('index', {
-        title: 'BPS Arpio',
-        layout: 'arpioLayout',
-        initialMarkup,
-        initialData
-      });
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(404).send('Bad Request server.js');
-      //res.send(error);
-    });
-});
+//server.get(['/events', '/events/:eventId'], (req, res) => {
+//// console.log(`eventId in server.js: ${req.params.eventId}`);
+//serverRender
+//.eventListRender(req.params.eventId) // promise from serverRender axios get call
+//.then(({ initialMarkup, initialData }) => {
+////console.log('after serverRender');
+////console.log(
+////  inspect(initialData, { showHidden: false, depth: null, colors: true })
+////);
+//// Render a view, passing local variables to the view
+//res.render('index', {
+//title: 'BPS Arpio',
+//layout: 'arpioLayout',
+//initialMarkup,
+//initialData
+//});
+//})
+//.catch((error) => {
+//console.error(error);
+//res.status(404).send('Bad Request server.js');
+////res.send(error);
+//});
+//});
 
 // first arg is the route, second is the apiRouter we imported above
 server.use('/api', apiRouter); // use the api router we made (api/index.js)
