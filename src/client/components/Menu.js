@@ -15,6 +15,10 @@ import {
   mdiExport
 } from '@mdi/js';
 
+// styles
+import styles from '../../styles/modules/style.scss';
+
+// components
 import MenuItem from './MenuItem';
 
 // You can use a function if the Icon component has a lot of props, and use

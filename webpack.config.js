@@ -1,16 +1,31 @@
 // import plugins
-var path = require('path');
-var webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
+
+// TODO: Work out swtiching between development and production
+// const cfg = require('./config.js');
+// const isDevelopment = confg.nodeEnv;
+const isDevelopment = true;
+
 // auto create index.html in the distribution directory
 // This will auto insert the script outputs from webpack
 // from an optional template (see plugin section below)
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+// Styling is done with a combinaiton of packages:
+// node-sass: provides binding for Node.js to LibSass, as Sass compiler
+// sass-loader: loader for webpack for compiling SCSS/Sass files
+// style-loader: injects styles into our DOM
+// css-loader: interprets and resolves @import and @url
+// mini-css-extract-plugin: extracts our CSS out of the JS bundle and into a separate
+// file.  By default, webpack would include the compiled CSS in the main bundle.
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const BUILD_DIR = path.resolve(__dirname, 'dist');
 const SOURCE_DIR = path.resolve(__dirname, 'src');
 const ASSETS_DIR = path.join(SOURCE_DIR, 'static');
-// var SASS_DIR = path.join(__dirname, 'sass');
-// var CSS_DIR = path.join(BUILD_DIR, 'css');
+const STYLES_DIR = path.join(SOURCE_DIR, 'styles');
+const STYLE_MODULES_DIR = path.join(STYLES_DIR, 'modules');
 const IMG_DIR = path.join(ASSETS_DIR, 'img');
 const HBS_VIEWS_DIR = path.join(SOURCE_DIR, 'views');
 const HBS_SHARED_VIEWS_DIR = path.join(HBS_VIEWS_DIR, 'shared');
@@ -65,9 +80,19 @@ var config = {
       filename: path.join(HBS_SHARED_VIEWS_DIR, '/viewAppClientWp.hbs'), // wp = webpack
       showErrors: true
     }),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new MiniCssExtractPlugin({
+      filename: isDevelopment ? '[name].css' : '[name].[hash].css',
+      chunkFilename: isDevelopment ? '[id].css' : '[id].[hash].css'
+    })
   ],
   module: {
+    // From webpack docs best practics:
+    // - Use regex only in test and for file name matching
+    // - Use absolute path or arrays of absolute paths in include and exclued to match full path
+    // - Try to avoid exclude and prefer include
+    //
+    // NOTE: Loader order reversed! [0] is used after [1], and [1] is used after [2]
     rules: [
       {
         //test: /\.(js|jsx)$/,
@@ -96,20 +121,60 @@ var config = {
           debug: false
         }
       },
-      /* Using node-sass-middleware instead to manage sass and css
-            {
-                test: /\.css$/,
-                include: CSS_DIR,
-                // exclude: /node_modules/,
-                use: ['style-loader', 'css-loader'] // order reversed! [0] is used after [1]
-            },
-            {
-                test: /\.scss$/,
-                include: CSS_DIR,
-                // exclude: /node_modules/,
-                use: ['style-loader', 'css-loader', 'sass-loader'] // order reversed! [0] is used after [1], and [1] is used after [2]
-            },
-            */
+      // For sass/scss
+      //    First convert SCSS to CSS with sass-loader
+      //    Then use css-loader to process @import() and @url(), etc
+      //    Then run thru style-loader to append to the DOM or the
+      //    Mini CSS Extract Plugin to externalize the CSS when doing a
+      //    produciton build.
+      //
+      //    Loaders for CSS Modules (modules=true).
+      //    The CSS styles are scoped to particular templates -- this means
+      //    that if there is a foo.css file and a .bar class within it,
+      //    and we import foo.js only into button.js, then .bar class would
+      //    be inaccessable to other templates (buz.js) unless it is specifically
+      //    imported there as well.
+      //
+      //    Modules are designed to fix the problem of global scope in CSS. Block
+      //    Element Modifyier (BEM) naming isn't needed for example.
+      {
+        test: /\.s(a|c)ss$/,
+        include: STYLE_MODULES_DIR,
+        loader: [
+          isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              sourceMap: isDevelopment
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: isDevelopment
+            }
+          }
+        ]
+      },
+      // This rule is like the one above, eccpet do not process the CSS modules.
+      // In other words, don't change the class names and selectors to be scoped
+      // locally. This is what the modules option does above.
+      {
+        test: /\.s(a|c)ss$/,
+        include: STYLES_DIR,
+        exclude: STYLE_MODULES_DIR,
+        loader: [
+          isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: isDevelopment
+            }
+          }
+        ]
+      },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         include: IMG_DIR,
@@ -117,6 +182,10 @@ var config = {
         use: 'file-loader'
       }
     ]
+  },
+  // simplify imports into js
+  resolve: {
+    extensions: ['.js', '.jsx', '.scss']
   },
   devServer: {
     // usually dev server publicPath is the same as output.publicPath

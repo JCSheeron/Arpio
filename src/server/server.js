@@ -13,7 +13,7 @@
 import path from 'path';
 import { inspect } from 'util'; // console.log of objects
 // using npm for sass instead of webpack
-import sassMiddleware from 'node-sass-middleware';
+// import sassMiddleware from 'node-sass-middleware';
 // express
 import express from 'express';
 
@@ -54,14 +54,14 @@ const server = express();
 // Use sass middleware with express
 // Note: Must go before express.static or it (sass?) won't work.
 // sass will take in /sass/style.scss (src file, extension is short for 'sass css file') and create /css/style.css
-server.use(
-  sassMiddleware({
-    src: SASS_DIR,
-    dest: CSS_DIR,
-    prefix: '/css', // needed if src and dest are not the same path
-    debug: false
-  })
-);
+//server.use(
+//sassMiddleware({
+//src: SASS_DIR,
+//dest: CSS_DIR,
+//prefix: '/css', // needed if src and dest are not the same path
+//debug: false
+//})
+//);
 
 // Set up the handlebars template engine and specify the extension,
 // default layout, layout and partials dirs, and you can add helpers here too.
