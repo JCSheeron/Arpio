@@ -5,14 +5,18 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "rimraf dist/bundles/*",
-    "start-server": "nodemon --exec babel-node src/server/server.js --ignore dist/",
-    "start-client": "webpack-dev-server --progress",
-    "build": "webpack -p",
-    "build-dev": "webpack --progress --debug --output-pathinfo",
-    "build-watch": "webpack --progress --watch --debug --output-pathinfo",
-    "clean-build-dev": "npm run clean && npm run build-dev",
-    "clean-build-watch": "npm run clean && npm run build-watch"
+    "clean": "rimraf dist/bundles/* && rimraf build/*",
+    "start-server": "nodemon --exec babel-node build/bpsServer-bundle.js --ignore dist/",
+    "start-client": "webpack-dev-server --config=webpack-front.config.js --progress",
+    "build-server": "webpack --config=webpack-back.config.js -p",
+    "build-server-dev": "webpack --config=webpack-back.config.js --progress --debug --output-pathinfo",
+    "build-server-watch": "webpack --config=webpack-back.config.js --progress --watch --debug --output-pathinfo",
+    "clean-build-server-dev": "npm run clean && npm run build-server-dev",
+    "build-client": "webpack --config=webpack-front.config.js -p",
+    "build-client-dev": "webpack --config=webpack-front.config.js --progress --debug --output-pathinfo",
+    "build-client-watch": "webpack --config=webpack-front.config.js --progress --watch --debug --output-pathinfo",
+    "clean-build-client-dev": "npm run clean && npm run build-client-dev",
+    "clean-build-client-watch": "npm run clean && npm run build-client-watch"
   },
   "repository": {
     "type": "git",
@@ -101,7 +105,8 @@
     "style-loader": "^2.0.0",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.11.0"
+    "webpack-dev-server": "^3.11.0",
+    "webpack-node-externals": "^2.5.2"
   },
   "optionalDependencies": {
     "fsevents": "^2.1.3"

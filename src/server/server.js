@@ -27,12 +27,14 @@ import apiRouter from './api/index.js'; // import the api router (./api/index.js
 import * as serverRender from './serverRender.js';
 
 // set paths
-// sassMiddleware takes in sass in src dir and spit out css in dist dir
-const BUILD_DIR = path.resolve(__dirname, '../../dist');
-const ASSETS_DIR = path.resolve(__dirname, '../static');
-const SASS_DIR = path.resolve(__dirname, 'sass');
-const CSS_DIR = path.join(BUILD_DIR, 'css');
-const HBS_VIEWS_DIR = path.resolve(__dirname, '../views');
+// Note: __dirname will be the webpack output path.
+// If webpack is used for separate backend build,
+// webpack config will need node: { __dirname: false } otherwise
+// __dirname will be '/'
+const BUILD_DIR = path.resolve(__dirname);
+const BUNDLE_DIR = path.resolve(__dirname, '../dist/bundles');
+const ASSETS_DIR = path.resolve(__dirname, '../src/static');
+const HBS_VIEWS_DIR = path.resolve(__dirname, '../src/views');
 const HBS_LAYOUTS_DIR = path.join(HBS_VIEWS_DIR, 'layouts/');
 const HBS_PARTIALS_DIR = path.join(HBS_VIEWS_DIR, 'partials/');
 const HBS_SHARED_PARTIALS_DIR = path.join(HBS_VIEWS_DIR, 'shared/'); // shared w/client
@@ -109,19 +111,19 @@ server.get('/about.html', (req, res) => {
 // left off the url -- Note: Do not include the period.
 //
 // Tell express where to get the bundled assets from
-server.use(express.static(path.join(BUILD_DIR, '/bundles')));
+server.use(express.static(BUNDLE_DIR));
+// server.use(express.static(BUILD_DIR));
 // Tell it where to get other static pages from.
 server.use(express.static(ASSETS_DIR, { extensions: ['html', 'htm'] }));
 
 server.get(['/', '/home'], (req, res) => {
-  // console.log('params in server.js');
-  // console.log(inspect(req, { showHidden: false, depth: 0, colors: true }));
   serverRender
     .baseDataRender() // promise from serverRender axios get call
     .then(({ initialMarkup, initialData }) => {
       // Render a view (output from WP that includes bundled scripts,
-      // passing local variables to the view
-      res.render('shared/viewAppClientWp.hbs', {
+      // passing local variables to the view.
+      // Path is expected to be relative to views directory.
+      res.render('./shared/viewAppClientWp.hbs', {
         title: 'BPS Arpio',
         // layout: path.join(HBS_LAYOUTS_DIR, 'arpioLayout'),
         layout: 'layoutHome',

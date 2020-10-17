@@ -35,6 +35,7 @@ const HBS_HELPERS_DIR = path.join(HBS_VIEWS_DIR, 'helpers');
 // webpack config object
 var config = {
   mode: 'development',
+  target: 'web', // default, but make it obvious
   entry: { bpsMain: path.join(SOURCE_DIR, 'client/appClient.js') },
   output: {
     path: path.join(BUILD_DIR, '/bundles'),
@@ -65,7 +66,6 @@ var config = {
   devtool: 'source-map',
   // devtool: false,
   plugins: [
-    //new webpack.SourceMapDevToolPlugin({}),
     // HtmlWebpackPlugin inserts the bundled scripts into the file specfied by
     // filename, using the specified template.
     // This is used for the client.  The handlebars loader (below) and the template
@@ -80,7 +80,6 @@ var config = {
       filename: path.join(HBS_SHARED_VIEWS_DIR, '/viewAppClientWp.hbs'), // wp = webpack
       showErrors: true
     }),
-    new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPlugin({
       filename: isDevelopment ? '[name].css' : '[name].[hash].css',
       chunkFilename: isDevelopment ? '[id].css' : '[id].[hash].css'
@@ -203,8 +202,10 @@ var config = {
     port: 9000, // default is 8080
     overlay: { warnings: true, errors: true }, // overlay in browser when there are errors/warnings
     disableHostCheck: false, // default is true, but false is more secure
-    open: false, // true: open tab in browser
-    hot: true // hot reload of modules. Needs webpack.HotModuleReplacmentPlugin() above
+    open: false // true: open tab in browser
+    // Could not get hot reloading to work with React. SSR may have also been a
+    // complicating factor.  Try React Fast Refresh in the future.
+    // hot: true // hot reload of modules. Needs webpack.HotModuleReplacmentPlugin() above
   }
 };
 
