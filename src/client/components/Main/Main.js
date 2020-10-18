@@ -11,21 +11,21 @@ import Typography from '@material-ui/core/Typography';
 import { inspect } from 'util'; //console.log of objects
 
 // components
-import Menu from './Menu';
+import Menu from '../Menu/Menu';
 // import HeaderComponent from './HeaderComponent';
 // import EventList from './EventList';
 // import Event from './Event';
 
 // pages
-import Home from './pages/Home';
-import Dashboard from './pages/Dashboard';
-import Events from './pages/Events';
-import Channels from './pages/Channels';
-import Inputs from './pages/Inputs';
-import Outputs from './pages/Outputs';
+import Home from '../pages/Home/Home';
+import Dashboard from '../pages/Dashboard/Dashboard';
+import Events from '../pages/Events/Events';
+import Channels from '../pages/Channels/Channels';
+import Inputs from '../pages/Channels/Inputs';
+import Outputs from '../pages/Channels/Outputs';
 
 // import api
-import * as api from '../api';
+import * as api from '../../api';
 
 // simulate data that will eventually come from elsewhere
 // import data from '../../../backend/data/testData1.json';

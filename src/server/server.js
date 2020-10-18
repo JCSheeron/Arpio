@@ -31,7 +31,6 @@ import * as serverRender from './serverRender.js';
 // If webpack is used for separate backend build,
 // webpack config will need node: { __dirname: false } otherwise
 // __dirname will be '/'
-const BUILD_DIR = path.resolve(__dirname);
 const BUNDLE_DIR = path.resolve(__dirname, '../dist/bundles');
 const ASSETS_DIR = path.resolve(__dirname, '../src/static');
 const HBS_VIEWS_DIR = path.resolve(__dirname, '../src/views');
@@ -52,18 +51,6 @@ const server = express();
 // Put the following lines in api/index.js and then use jsonParser in a POST
 // import bodyParser from 'body-parser';
 // const jsonParser = bodyParser.json();
-
-// Use sass middleware with express
-// Note: Must go before express.static or it (sass?) won't work.
-// sass will take in /sass/style.scss (src file, extension is short for 'sass css file') and create /css/style.css
-//server.use(
-//sassMiddleware({
-//src: SASS_DIR,
-//dest: CSS_DIR,
-//prefix: '/css', // needed if src and dest are not the same path
-//debug: false
-//})
-//);
 
 // Set up the handlebars template engine and specify the extension,
 // default layout, layout and partials dirs, and you can add helpers here too.

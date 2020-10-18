@@ -26,6 +26,7 @@ const SOURCE_DIR = path.resolve(__dirname, 'src');
 const ASSETS_DIR = path.join(SOURCE_DIR, 'static');
 const STYLES_DIR = path.join(SOURCE_DIR, 'styles');
 const STYLE_MODULES_DIR = path.join(STYLES_DIR, 'modules');
+const COMPONENTS_DIR = path.join(SOURCE_DIR, 'client/components');
 const IMG_DIR = path.join(ASSETS_DIR, 'img');
 const HBS_VIEWS_DIR = path.join(SOURCE_DIR, 'views');
 const HBS_SHARED_VIEWS_DIR = path.join(HBS_VIEWS_DIR, 'shared');
@@ -136,9 +137,13 @@ var config = {
       //
       //    Modules are designed to fix the problem of global scope in CSS. Block
       //    Element Modifyier (BEM) naming isn't needed for example.
+      //
+      //    Include the src/styles and src/styles/modules,
+      //    and also the files in the individual components src/client/components.
+      //    Assume the component folder are modules
       {
         test: /\.s(a|c)ss$/,
-        include: STYLE_MODULES_DIR,
+        include: [STYLE_MODULES_DIR, COMPONENTS_DIR],
         loader: [
           isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
           {

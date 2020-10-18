@@ -28,6 +28,7 @@ build/Release
 
 # distribution libraries
 dist
+build
 
 # Dependency directories
 node_modules

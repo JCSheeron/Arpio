@@ -16,7 +16,7 @@ import {
 } from '@mdi/js';
 
 // styles
-import styles from '../../styles/modules/style.scss';
+import styles from '../../../styles/modules/style.scss';
 
 // components
 import MenuItem from './MenuItem';
