@@ -1,3 +1,39 @@
+/* Color legend
+hex with alpha
+antique-brass: #cb997eff;
+champagne-pink: #eddcd2ff;
+linen: #fff1e6ff;
+isabelline: #f0efebff;
+desert-sand: #ddbea9ff;
+artichoke: #a5a58dff;
+ash-gray: #b7b7a4ff;
+dark gray, almost black: #343434ff;
+*/
+
+/*  Global Styles
+---------------------------------------- */
+main {
+  color: #343434;
+}
+
 img {
   width: 300px;
 }
+
+/*  Profile
+---------------------------------------- */
+header {
+  background: #ddbea9;
+}
+
+/*  Projects
+---------------------------------------- */
+
+/*  Work Experience
+---------------------------------------- */
+
+/*  Education
+---------------------------------------- */
+
+/*  Contact Info
+---------------------------------------- */

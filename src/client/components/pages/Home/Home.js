@@ -21,6 +21,17 @@ const Home = (props) => {
       </header>
 
       <section>
+        <h2>Profile</h2>
+        <p>View profile below.</p>
+
+        <section>
+          <h3>Profile Details</h3>
+          <img src='/img/sm.jpg' alt='Stack O Books' />
+          <p>Summary or description of your profile info.</p>
+        </section>
+      </section>
+
+      <section>
         <h2>Featured Projects</h2>
         <p>
           View selected projects below. More information can be found at{' '}
