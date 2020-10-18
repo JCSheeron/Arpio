@@ -15,6 +15,7 @@ const BUILD_DIR = path.resolve(__dirname, 'build');
 const SOURCE_DIR = path.resolve(__dirname, 'src/server');
 const STYLES_DIR = path.resolve(__dirname, 'src/styles');
 const STYLE_MODULES_DIR = path.join(STYLES_DIR, 'modules');
+const COMPONENTS_DIR = path.resolve(__dirname, 'src/client/components');
 
 // webpack config object
 var config = {
@@ -57,10 +58,8 @@ var config = {
       },
       // For sass/scss
       //    First convert SCSS to CSS with sass-loader
-      //    Then use css-loader to process @import() and @url(), etc into js
-      //    Then run thru style-loader to append to the DOM or the
-      //    Mini CSS Extract Plugin to externalize the CSS when doing a
-      //    produciton build.
+      //    Then use css-loader to process @import() and @url(), etc into js.
+      //    No style-loader on the backend since there is no DOM
       //
       //    Loaders for CSS Modules (modules=true).
       //    The CSS styles are scoped to particular templates -- this means
@@ -71,11 +70,43 @@ var config = {
       //
       //    Modules are designed to fix the problem of global scope in CSS. Block
       //    Element Modifyier (BEM) naming isn't needed for example.
+      //
+      //    Include the src/styles and src/styles/modules,
+      //    and also the files in the individual components src/client/components.
+      //    Assume the component folder are modules
+      {
+        test: /\.css$/,
+        include: [STYLE_MODULES_DIR, COMPONENTS_DIR],
+        loader: [
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              sourceMap: isDevelopment
+            }
+          }
+        ]
+      },
+      // This rule is like the one above, eccpet do not process the CSS modules.
+      // In other words, don't change the class names and selectors to be scoped
+      // locally. This is what the modules option does above.
+      {
+        test: /\.css$/,
+        include: STYLES_DIR,
+        exclude: STYLE_MODULES_DIR,
+        loader: [
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: isDevelopment
+            }
+          }
+        ]
+      },
       {
         test: /\.s(a|c)ss$/,
         include: STYLE_MODULES_DIR,
         loader: [
-          // isDevelopment ? 'style-loader' : cssExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: {
@@ -99,7 +130,6 @@ var config = {
         include: STYLES_DIR,
         exclude: STYLE_MODULES_DIR,
         loader: [
-          // isDevelopment ? 'style-loader' : cssExtractPlugin.loader,
           'css-loader',
           {
             loader: 'sass-loader',

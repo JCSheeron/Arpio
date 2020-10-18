@@ -142,6 +142,37 @@ var config = {
       //    and also the files in the individual components src/client/components.
       //    Assume the component folder are modules
       {
+        test: /\.css$/,
+        include: [STYLE_MODULES_DIR, COMPONENTS_DIR],
+        loader: [
+          isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              sourceMap: isDevelopment
+            }
+          }
+        ]
+      },
+      // This rule is like the one above, eccpet do not process the CSS modules.
+      // In other words, don't change the class names and selectors to be scoped
+      // locally. This is what the modules option does above.
+      {
+        test: /\.css$/,
+        include: STYLES_DIR,
+        exclude: STYLE_MODULES_DIR,
+        loader: [
+          isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: isDevelopment
+            }
+          }
+        ]
+      },
+      {
         test: /\.s(a|c)ss$/,
         include: [STYLE_MODULES_DIR, COMPONENTS_DIR],
         loader: [

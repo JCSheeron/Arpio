@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+// styles
+import styles from './styles.css';
+
 const Home = (props) => {
   return (
     <main>
