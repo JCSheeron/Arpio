@@ -28,9 +28,15 @@ header {
 
 /*  Projects
 ---------------------------------------- */
+.projects {
+  background: #f7fff7;
+}
 
 /*  Work Experience
 ---------------------------------------- */
+.workExperience {
+  background: #a1c607;
+}
 
 /*  Education
 ---------------------------------------- */

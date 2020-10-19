@@ -31,7 +31,7 @@ const Home = (props) => {
         </section>
       </section>
 
-      <section>
+      <section className={styles.projects}>
         <h2>Featured Projects</h2>
         <p>
           View selected projects below. More information can be found at{' '}
@@ -51,7 +51,7 @@ const Home = (props) => {
         </section>
       </section>
 
-      <section>
+      <section className={styles.workExperience}>
         <h2>Work Experience</h2>
         <p>
           Optional paragraph for work experience summary. Not a part of the job
@@ -73,7 +73,7 @@ const Home = (props) => {
         </section>
       </section>
 
-      <section>
+      <section className={styles.education}>
         <h2>Education</h2>
 
         <section>
