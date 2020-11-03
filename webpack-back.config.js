@@ -13,9 +13,12 @@ const isDevelopment = true;
 
 const BUILD_DIR = path.resolve(__dirname, 'build');
 const SOURCE_DIR = path.resolve(__dirname, 'src/server');
+const ASSETS_DIR = path.join(SOURCE_DIR, 'static');
 const STYLES_DIR = path.resolve(__dirname, 'src/styles');
 const STYLE_MODULES_DIR = path.join(STYLES_DIR, 'modules');
+const FONTS_DIR = path.join(STYLES_DIR, 'fonts');
 const COMPONENTS_DIR = path.resolve(__dirname, 'src/client/components');
+const IMG_DIR = path.join(ASSETS_DIR, 'img');
 
 // webpack config object
 var config = {
@@ -138,6 +141,26 @@ var config = {
             }
           }
         ]
+      },
+
+      // Don't emit static image or font assets.
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        include: IMG_DIR,
+        loader: 'file-loader',
+        options: {
+          emitFile: false
+        }
+      },
+      // fonts may be central or with components
+      {
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        include: [FONTS_DIR, COMPONENTS_DIR],
+        // include: FONTS_DIR,
+        loader: 'file-loader',
+        options: {
+          emitFile: false
+        }
       }
     ]
   },

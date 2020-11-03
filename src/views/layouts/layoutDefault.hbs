@@ -6,9 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>AltLayout{{ title }}</title>
     <script type="text/javascript">window.initialData={{{toJSON initialData}}}</script>
+    <link rel="stylesheet" href="../../styles/global.css">
   </head>
-{{> headerDefault }}
-<body>{{{ body }}}</body>
-{{> footerDefault }}
+  <body>
+    {{> headerDefault }}
+    {{{ body }}}
+    {{> footerDefault }}
+  </body>
 </html>
 

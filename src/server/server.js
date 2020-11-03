@@ -64,7 +64,7 @@ server.engine(
     layoutsDir: HBS_LAYOUTS_DIR,
     partialsDir: [HBS_PARTIALS_DIR, HBS_SHARED_PARTIALS_DIR],
     helpers: {
-      toJSON: function(object) {
+      toJSON: function (object) {
         return JSON.stringify(object);
       }
     }
@@ -99,7 +99,6 @@ server.get('/about.html', (req, res) => {
 //
 // Tell express where to get the bundled assets from
 server.use(express.static(BUNDLE_DIR));
-// server.use(express.static(BUILD_DIR));
 // Tell it where to get other static pages from.
 server.use(express.static(ASSETS_DIR, { extensions: ['html', 'htm'] }));
 

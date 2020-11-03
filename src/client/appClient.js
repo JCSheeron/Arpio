@@ -5,6 +5,9 @@ import { BrowserRouter } from 'react-router-dom';
 
 import Main from './components/Main/Main';
 
+// global styles
+import '../styles/global.css';
+
 // ReactDOM.render(
 ReactDOM.hydrate(
   // Use hydrate for server side rendering (render being deprecated)

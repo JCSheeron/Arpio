@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
+//import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -108,7 +108,7 @@ const Main = (props) => {
 
   return (
     <div className={clsx('Main', classes.root)}>
-      <CssBaseline />
+      {/*<CssBaseline /> */}
       <Drawer variant='permanent' classes={{ paper: classes.drawerPaper }}>
         <Menu />
       </Drawer>
