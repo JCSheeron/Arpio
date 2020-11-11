@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import { StylesProvider, makeStyles } from '@material-ui/core/styles';
 //import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Container from '@material-ui/core/Container';
@@ -107,36 +107,42 @@ const Main = (props) => {
   // };
 
   return (
-    <div className={clsx('Main', classes.root)}>
-      {/*<CssBaseline /> */}
-      <Drawer variant='permanent' classes={{ paper: classes.drawerPaper }}>
-        <Menu />
-      </Drawer>
-      <main className={classes.content}>
-        <Container maxWidth='lg' className={classes.container}>
-          <Switch>
-            <Route exact path={['/', '/home']}>
-              <Home />
-            </Route>
-            <Route path='/dashboard'>
-              <Dashboard />
-            </Route>
-            <Route path='/events'>
-              <Events />
-            </Route>
-            <Route exact path='/channels'>
-              <Channels />
-            </Route>
-            <Route path='/channels/inputs'>
-              <Inputs />
-            </Route>
-            <Route path='/channels/outputs'>
-              <Outputs />
-            </Route>
-          </Switch>
-        </Container>
-      </main>
-    </div>
+    // allow css style sheets (modules in this case) to override
+    // material-ui settings by injecting the material style tags first
+    // in the head element. By default they are injected last, overriding the
+    // css style sheets.
+    <StylesProvider injectFirst>
+      <div className={clsx('Main', classes.root)}>
+        {/*<CssBaseline /> */}
+        <Drawer variant='permanent' classes={{ paper: classes.drawerPaper }}>
+          <Menu />
+        </Drawer>
+        <main className={classes.content}>
+          <Container maxWidth='lg' className={classes.container}>
+            <Switch>
+              <Route exact path={['/', '/home']}>
+                <Home />
+              </Route>
+              <Route path='/dashboard'>
+                <Dashboard />
+              </Route>
+              <Route path='/events'>
+                <Events />
+              </Route>
+              <Route exact path='/channels'>
+                <Channels />
+              </Route>
+              <Route path='/channels/inputs'>
+                <Inputs />
+              </Route>
+              <Route path='/channels/outputs'>
+                <Outputs />
+              </Route>
+            </Switch>
+          </Container>
+        </main>
+      </div>
+    </StylesProvider>
   );
 };
 

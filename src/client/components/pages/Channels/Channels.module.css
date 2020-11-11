@@ -1,0 +1,59 @@
+/* Color legend
+hex with alpha
+antique-brass: #cb997eff;
+champagne-pink: #eddcd2ff;
+linen: #fff1e6ff;
+isabelline: #f0efebff;
+desert-sand: #ddbea9ff;
+artichoke: #a5a58dff;
+ash-gray: #b7b7a4ff;
+dark gray, almost black: #343434ff;
+*/
+
+/*  Global Styles
+---------------------------------------- */
+@font-face {
+  font-family: 'RobotoLight';
+  src: url(fonts/Roboto/Roboto-Light.ttf);
+}
+@font-face {
+  font-family: 'RobotoRegular';
+  src: url(fonts/Roboto/Roboto-Regular.ttf);
+}
+@font-face {
+  font-family: 'RobotoBold';
+  src: url(fonts/Roboto/Roboto-Bold.ttf);
+}
+
+header,
+footer {
+  font-family: 'RobotoBold', sans-serif;
+  font-weight: 700;
+  margin: 0;
+}
+
+h1,
+h2 {
+  font-family: 'RobotoBold', sans-serif;
+  font-weight: 400;
+  margin: 0;
+}
+
+h1 {
+  font-size: 100px;
+  line-height: 1;
+}
+
+h2 {
+  font-size: 45px;
+}
+
+/* channel items
+---------------------------------------- */
+.channelItem {
+  background-color: gray;
+  color: red;
+  width: 15;
+  height: 45;
+}
+

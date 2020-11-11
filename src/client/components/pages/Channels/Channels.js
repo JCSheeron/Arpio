@@ -1,69 +1,104 @@
 import React, { Component } from 'react';
+
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Radio from '@material-ui/core/Radio';
+import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    height: 140,
-    width: 100
-  },
-  control: {
-    padding: 20,
-    marginTop: 15,
-    background: '#fc3'
-  }
-}));
+// Material-ui StylesProvider is used in Main.js which allows
+// css style sheets (modules in this case) to override
+// material-ui settings by injecting the material style tags first
+// in the head element. By default they are injected last, overriding the
+// css style sheets.
+import styles from './Channels.css';
 
 const Channels = (props) => {
-  const [spacing, setSpacing] = React.useState(2);
-
-  const handleChange = (event) => {
-    setSpacing(Number(event.target.value));
-  };
-
-  const classes = useStyles();
-
+  //  const classes = useStyles();
   return (
-    <div>
-      <div>
-        <Grid container justify='center' spacing={spacing}>
-          {[0, 1, 2].map((value) => (
-            <Grid key={value} item>
-              <Paper className={classes.paper} />
-            </Grid>
-          ))}
-        </Grid>
-      </div>
-      <div>
-        <Paper className={classes.control}>
-          <div>
-            <FormLabel>spacing</FormLabel>
-            <RadioGroup
-              name='spacing'
-              aria-label='spacing'
-              value={spacing.toString()}
-              onChange={handleChange}
-              row>
-              {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => (
-                <FormControlLabel
-                  key={value}
-                  value={value.toString()}
-                  control={<Radio />}
-                  label={value.toString()}
-                />
-              ))}
-            </RadioGroup>
-          </div>
+    <main>
+      <header>Header Section</header>
+      <Container className={styles.channelContainer} maxWidth='lg'>
+        <Paper elevation={3} className={styles.channelItem}>
+          2
         </Paper>
-      </div>
-    </div>
+        <Paper elevation={3} className={styles.channelItem}>
+          3
+        </Paper>
+        <Paper elevation={3} className={styles.channelItem}>
+          4
+        </Paper>
+        <Paper elevation={3} className={styles.channelItem}>
+          5
+        </Paper>
+        <Paper elevation={3} className={styles.channelItem}>
+          6
+        </Paper>
+        <Paper elevation={3} className={styles.channelItem}>
+          7
+        </Paper>
+        <Paper elevation={3} className={styles.channelItem}>
+          8
+        </Paper>
+        <Paper elevation={3} className={styles.channelItem}>
+          9
+        </Paper>
+        <Paper elevation={3} className={styles.channelItem}>
+          10
+        </Paper>
+        <Paper elevation={3} className={styles.channelItem}>
+          11
+        </Paper>
+        <Paper elevation={3} className={styles.channelItem}>
+          12
+        </Paper>
+        <Paper elevation={3} className={styles.channelItem}>
+          13
+        </Paper>
+        <Paper elevation={3} className={styles.channelItem}>
+          14
+        </Paper>
+        <Paper elevation={3} className={styles.channelItem}>
+          15
+        </Paper>
+        <Paper elevation={3} className={styles.channelItem}>
+          16
+        </Paper>
+        <Paper elevation={3} className={styles.channelItem}>
+          17
+        </Paper>
+        <Paper elevation={3} className={styles.channelItem}>
+          18
+        </Paper>
+        <Paper elevation={3} className={styles.channelItem}>
+          19
+        </Paper>
+        <Paper elevation={3} className={styles.channelItem}>
+          20
+        </Paper>
+        <Paper elevation={3} className={styles.channelItem}>
+          21
+        </Paper>
+        <Paper elevation={3} className={styles.channelItem}>
+          22
+        </Paper>
+        <Paper elevation={3} className={styles.channelItem}>
+          23
+        </Paper>
+        <Paper elevation={3} className={styles.channelItem}>
+          24
+        </Paper>
+        <Paper elevation={3} className={styles.channelItem}>
+          25
+        </Paper>
+        <Paper elevation={3} className={styles.channelItem}>
+          26
+        </Paper>
+      </Container>
+      <footer>Footer Section</footer>
+    </main>
   );
 };
 
 export default Channels;
+
