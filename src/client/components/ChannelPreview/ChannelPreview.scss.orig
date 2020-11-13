@@ -1,0 +1,38 @@
+/* font families
+---------------------------------------- */
+
+@font-face {
+  font-family: 'RobotoLight';
+  src: url(fonts/Roboto/Roboto-Light.ttf);
+}
+
+@font-face {
+  font-family: 'RobotoBold';
+  src: url(fonts/Roboto/Roboto-Bold.ttf);
+}
+/* Global Styles
+---------------------------------------- */
+
+/* channel items
+---------------------------------------- */
+
+.label {
+  font-size: 14px;
+}
+
+.id {
+  font-family: 'RobotoBold';
+  font-size: 18px;
+  margin-bottom: 1rem;
+}
+
+.details {
+  /* font-family: 'RobotoLight'; */
+  font-size: 18px;
+  margin-bottom: 1rem;
+
+  & last {
+    margin-bottom: 0;
+  }
+}
+

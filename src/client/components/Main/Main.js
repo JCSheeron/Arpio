@@ -130,7 +130,7 @@ const Main = (props) => {
                 <Events />
               </Route>
               <Route exact path='/channels'>
-                <Channels />
+                <Channels channels={arpiData.channels} />
               </Route>
               <Route path='/channels/inputs'>
                 <Inputs />

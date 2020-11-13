@@ -40,11 +40,7 @@ footer {
   grid-template-rows: repeat(5, 1fr);
   justify-content: space-evenly;
   grid-gap: 2%;
-  height: 80vh;
+  /* height: 80vh; */
   margin: 2%;
-}
-
-.channelItem {
-  text-align: center;
 }
 

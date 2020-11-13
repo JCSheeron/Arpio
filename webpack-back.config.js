@@ -108,7 +108,7 @@ var config = {
       },
       {
         test: /\.s(a|c)ss$/,
-        include: STYLE_MODULES_DIR,
+        include: [STYLE_MODULES_DIR, COMPONENTS_DIR],
         loader: [
           {
             loader: 'css-loader',

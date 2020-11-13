@@ -1,129 +1,154 @@
 {
-    "arpiData": {
-        "channels": {
-            "2": {
-                "name": "",
-                "mode": ""
-            },
-            "3": {
-                "name": "",
-                "mode": ""
-            },
-            "4": {
-                "name": "",
-                "mode": ""
-            },
-            "5": {
-                "name": "",
-                "mode": ""
-            },
-            "6": {
-                "name": "",
-                "mode": ""
-            },
-            "7": {
-                "name": "",
-                "mode": ""
-            },
-            "8": {
-                "name": "",
-                "mode": ""
-            },
-            "9": {
-                "name": "",
-                "mode": ""
-            },
-            "10": {
-                "name": "",
-                "mode": ""
-            },
-            "11": {
-                "name": "",
-                "mode": ""
-            },
-            "12": {
-                "name": "",
-                "mode": ""
-            },
-            "13": {
-                "name": "",
-                "mode": ""
-            },
-            "14": {
-                "name": "",
-                "mode": ""
-            },
-            "15": {
-                "name": "",
-                "mode": ""
-            },
-            "16": {
-                "name": "",
-                "mode": ""
-            },
-            "17": {
-                "name": "",
-                "mode": ""
-            },
-            "18": {
-                "name": "",
-                "mode": ""
-            },
-            "19": {
-                "name": "",
-                "mode": ""
-            },
-            "20": {
-                "name": "",
-                "mode": ""
-            },
-            "21": {
-                "name": "",
-                "mode": ""
-            },
-            "22": {
-                "name": "",
-                "mode": ""
-            },
-            "23": {
-                "name": "",
-                "mode": ""
-            },
-            "24": {
-                "name": "",
-                "mode": ""
-            },
-            "25": {
-                "name": "",
-                "mode": ""
-            },
-            "26": {
-                "name": "",
-                "mode": ""
-            }
-        },
-        "operation": {
-            "mode": ""
-        },
-        "events": {
-            "<id1>": {
-                "_id": "<id>",
-                "name": "",
-                "description": "",
-                "startTimes": [],
-                "endTimes": [],
-                "triggers": [],
-                "actions":[]
-            },
-            "<id2>": {
-                "_id": "<id>",
-                "name": "",
-                "description": "",
-                "startTimes": [],
-                "endTimes": [],
-                "actions":[],
-                "triggers": []
-            }
-        }
+  "arpiData": {
+    "channels": {
+      "2": {
+        "_id": "2",
+        "name": "",
+        "mode": ""
+      },
+      "3": {
+        "_id": "3",
+        "name": "",
+        "mode": ""
+      },
+      "4": {
+        "_id": "4",
+        "name": "",
+        "mode": ""
+      },
+      "5": {
+        "_id": "5",
+        "name": "",
+        "mode": ""
+      },
+      "6": {
+        "_id": "6",
+        "name": "",
+        "mode": ""
+      },
+      "7": {
+        "_id": "7",
+        "name": "",
+        "mode": ""
+      },
+      "8": {
+        "_id": "8",
+        "name": "",
+        "mode": ""
+      },
+      "9": {
+        "_id": "9",
+        "name": "",
+        "mode": ""
+      },
+      "10": {
+        "_id": "10",
+        "name": "",
+        "mode": ""
+      },
+      "11": {
+        "_id": "11",
+        "name": "",
+        "mode": ""
+      },
+      "12": {
+        "_id": "12",
+        "name": "",
+        "mode": ""
+      },
+      "13": {
+        "_id": "13",
+        "name": "",
+        "mode": ""
+      },
+      "14": {
+        "_id": "14",
+        "name": "",
+        "mode": ""
+      },
+      "15": {
+        "_id": "15",
+        "name": "",
+        "mode": ""
+      },
+      "16": {
+        "_id": "16",
+        "name": "",
+        "mode": ""
+      },
+      "17": {
+        "_id": "17",
+        "name": "",
+        "mode": ""
+      },
+      "18": {
+        "_id": "18",
+        "name": "",
+        "mode": ""
+      },
+      "19": {
+        "_id": "19",
+        "name": "",
+        "mode": ""
+      },
+      "20": {
+        "_id": "20",
+        "name": "",
+        "mode": ""
+      },
+      "21": {
+        "_id": "21",
+        "name": "",
+        "mode": ""
+      },
+      "22": {
+        "_id": "22",
+        "name": "",
+        "mode": ""
+      },
+      "23": {
+        "_id": "23",
+        "name": "",
+        "mode": ""
+      },
+      "24": {
+        "_id": "24",
+        "name": "",
+        "mode": ""
+      },
+      "25": {
+        "_id": "25",
+        "name": "",
+        "mode": ""
+      },
+      "26": {
+        "_id": "26",
+        "name": "",
+        "mode": ""
+      }
+    },
+    "operation": {
+      "mode": ""
+    },
+    "events": {
+      "<id1>": {
+        "_id": "<id>",
+        "name": "",
+        "description": "",
+        "startTimes": [],
+        "endTimes": [],
+        "triggers": [],
+        "actions": []
+      },
+      "<id2>": {
+        "_id": "<id>",
+        "name": "",
+        "description": "",
+        "startTimes": [],
+        "endTimes": [],
+        "actions": [],
+        "triggers": []
+      }
     }
+  }
 }
