@@ -1,9 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 // styles
 import styles from './Home.css';
 
+import ioOptions from '../../../../server/data/RPiIoOptions';
+
 const Home = (props) => {
+  let co = ioOptions.getChannelOptions(17);
+  let cio = ioOptions.getChannelInputOptions(19);
+  let coo = ioOptions.getChannelOutputOptions(19);
+  let cdo = ioOptions.getChannelDeviceOptions(19);
+
+  console.log(co);
+  console.log(cio);
+  console.log(coo);
+  console.log(cdo);
   return (
     <main>
       {/************* About/ Profile ************/}

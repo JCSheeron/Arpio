@@ -106,14 +106,21 @@ const Main = (props) => {
   //);
   // };
 
+  const handleUpdateChannel = (id, channel) => {
+    // update the channel with the specified id with the sepcified channel config
+    console.log('handleUpdateChannel in main');
+    console.log(`id: ${id}`);
+    console.log('channel:');
+    console.log(channel);
+  };
+
   return (
-    // allow css style sheets (modules in this case) to override
+    // allow css style sheets (modules in kkhis case) to override
     // material-ui settings by injecting the material style tags first
     // in the head element. By default they are injected last, overriding the
     // css style sheets.
     <StylesProvider injectFirst>
       <div className={clsx('Main', classes.root)}>
-        {/*<CssBaseline /> */}
         <Drawer variant='permanent' classes={{ paper: classes.drawerPaper }}>
           <Menu />
         </Drawer>
@@ -130,7 +137,10 @@ const Main = (props) => {
                 <Events />
               </Route>
               <Route exact path='/channels'>
-                <Channels channels={arpiData.channels} />
+                <Channels
+                  channels={arpiData.channels}
+                  updateChannel={handleUpdateChannel}
+                />
               </Route>
               <Route path='/channels/inputs'>
                 <Inputs />
