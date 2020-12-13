@@ -6,15 +6,13 @@ import styles from './Home.css';
 import ioOptions from '../../../../server/data/RPiIoOptions';
 
 const Home = (props) => {
-  let co = ioOptions.getChannelOptions(17);
-  let cio = ioOptions.getChannelInputOptions(19);
-  let coo = ioOptions.getChannelOutputOptions(19);
-  let cdo = ioOptions.getChannelDeviceOptions(19);
+  let co = ioOptions.getChannelOptions('17');
+  let cio = ioOptions.getChannelInputOptions('17');
+  let coo = ioOptions.getChannelOutputOptions('17');
 
   console.log(co);
   console.log(cio);
   console.log(coo);
-  console.log(cdo);
   return (
     <main>
       {/************* About/ Profile ************/}

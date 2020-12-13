@@ -17,8 +17,8 @@ import Typography from '@material-ui/core/Typography';
 import styles from './ChannelPreview.scss';
 
 const ChannelPreview = ({ channel, onConfigClick }) => {
-  // named arrow function to handle the click event, and pass the
-  // id back to the parent.
+  // named arrow function to handle the config button click event, and pass
+  // channel data via props to the dialog, and open the dialog.
   return (
     <Card className={styles.channelContainer} variant='outlined'>
       <CardContent>
@@ -38,6 +38,16 @@ const ChannelPreview = ({ channel, onConfigClick }) => {
           Name
         </Typography>
         <Typography className={styles.details}>{channel.name}</Typography>
+        <Typography
+          className={styles.label}
+          variant='h3'
+          color='textSecondary'
+          gutterBottom>
+          Description
+        </Typography>
+        <Typography className={styles.details}>
+          {channel.description}
+        </Typography>
         <Typography
           className={styles.label}
           variant='h3'

@@ -20,43 +20,43 @@ const Channels = (props) => {
 
   // *** States related to configuring a channel and associated dialog
   const [dialogConfigOpen, setDialogConfigOpen] = React.useState(false);
-  const [configId, setConfigId] = React.useState(-1);
   const [configChannel, setConfigChannel] = React.useState({});
 
   // *** Config button handler (launch dialog)
-  const handleConfigChannelClick = (event) => {
+  const handleDialogOpen = (event) => {
+    console.log(
+      'Channels config button pressed launching dialog for a specific channel'
+    );
+    console.log('channels:');
+    console.log(channels);
     console.log('Preview Config Pressed: Preview Config Handler in Channels');
+    console.log('Id:');
     console.log(event.currentTarget.id);
-    setConfigId(event.currentTarget.id);
-    setConfigChannel(channels[event.currentTarget.id]);
+    setConfigChannel(channels.current[event.currentTarget.id]);
     setDialogConfigOpen(true);
   };
 
-  // *** Config Dialog Handlers
-  const handleDialogClose = () => {
-    console.log('Cancel Pressed: Dialog Close Handler in Channels');
-    setConfigChannel({});
+  // *** Config Dialog Close handler
+  // Update the channel only if a channel is passed in, otherwise just close
+  const handleDialogClose = (channel) => {
     setDialogConfigOpen(false);
-  };
-
-  const handleDialogConfig = (channel) => {
     console.log('Dialog Config Pressed: Dialog Config Handler in Channels');
-    console.log('Channel:');
+    console.log('Channel from Dialog:');
     console.log(channel);
-    setDialogConfigOpen(false);
-    channels[configId].name = channel.name;
-    channels[configId].description = channel.description;
+    if (channel) {
+      updateChannel(channel);
+    }
   };
 
   return (
     <main>
       <header>Header Section</header>
       <Container className={styles.channelContainer} maxWidth='lg'>
-        {Object.keys(channels).map((key, i) => (
+        {Object.keys(channels.current).map((key, i) => (
           <ChannelPreview
             key={i}
-            channel={channels[key]}
-            onConfigClick={handleConfigChannelClick}
+            channel={channels.current[key]}
+            onConfigClick={handleDialogOpen}
           />
         ))}
       </Container>
@@ -64,7 +64,6 @@ const Channels = (props) => {
         channel={configChannel}
         open={dialogConfigOpen}
         onClose={handleDialogClose}
-        onConfig={handleDialogConfig}
       />
       <footer>Footer Section</footer>
     </main>

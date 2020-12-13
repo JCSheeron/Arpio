@@ -11,26 +11,30 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 const DialogChannelConfig = (props) => {
-  const { open, channel, onClose, onConfig } = props;
-  // local copy
+  const { open, channel, onClose } = props;
+  // local copies
   const [name, setName] = React.useState(channel.name);
   const [description, setDescription] = React.useState(channel.description);
 
-  const handleClose = () => {
-    console.log('Cancel Button Clicked or Dialog Closed');
-    // set state back to passed in props
+  // The dialog should display the content of the clicked channel,
+  // not simply the last thing entered. Reset the state when
+  // the open prop changs to false.
+
+  const handleEnter = () => {
     setName(channel.name);
     setDescription(channel.description);
+  };
+
+  const handleClose = () => {
+    console.log('Cancel Button Clicked or Dialog Closed');
     onClose();
   };
 
   const handleConfig = () => {
     console.log('Config Button Clicked');
-    channel.name = name;
-    channel.description = description;
-    console.log('Channel:');
-    console.log(channel);
-    onConfig(channel);
+    // let locChannel = { _id: channel._id, name: name, description: description };
+    // console.log(locChannel);
+    onClose({ _id: channel._id, name: name, description: description });
   };
 
   const handleNameChange = (event) => {
@@ -45,9 +49,10 @@ const DialogChannelConfig = (props) => {
 
   return (
     <Dialog
-      onClose={handleClose}
       aria-labelledby='configure-channel-title'
-      open={open}>
+      open={open}
+      onEnter={handleEnter}
+      onClose={handleClose}>
       <DialogTitle id='configure-channel-title'>
         Configure Channel {channel._id}
       </DialogTitle>
@@ -58,7 +63,7 @@ const DialogChannelConfig = (props) => {
           id='name'
           label='Channel Name'
           type='text'
-          value={name}
+          value={name || ''} // blank if undefined
           onChange={handleNameChange}
         />
         <TextField
@@ -68,7 +73,7 @@ const DialogChannelConfig = (props) => {
           type='text'
           fullWidth
           multiline
-          value={description}
+          value={description || ''} // blank if undefined
           onChange={handleDescriptionChange}
         />
       </DialogContent>

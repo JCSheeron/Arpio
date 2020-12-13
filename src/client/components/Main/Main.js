@@ -75,6 +75,9 @@ const Main = (props) => {
   // use hook from makeStyles to bring in styles
   const classes = useStyles();
 
+  // Local mutable copy.  TODO: API post or some other way to make permanent
+  const locChannels = React.useRef(arpiData.channels);
+
   // return either a list of events or if there is a valid id, the
   // event corresponding to the id
   // currentContent = () => {
@@ -106,12 +109,16 @@ const Main = (props) => {
   //);
   // };
 
-  const handleUpdateChannel = (id, channel) => {
+  const handleUpdateChannel = (channel) => {
     // update the channel with the specified id with the sepcified channel config
     console.log('handleUpdateChannel in main');
-    console.log(`id: ${id}`);
-    console.log('channel:');
+    console.log(locChannels.current);
+    console.log('target channel:');
+    console.log(locChannels.current[channel._id]);
+    console.log('Incoming channel config');
     console.log(channel);
+    locChannels.current[channel._id] = channel;
+    console.log(locChannels.current);
   };
 
   return (
@@ -138,8 +145,8 @@ const Main = (props) => {
               </Route>
               <Route exact path='/channels'>
                 <Channels
-                  channels={arpiData.channels}
-                  updateChannel={handleUpdateChannel}
+                  channels={locChannels}
+                  updateChannel={handleUpdateChannel} // params: (channel)
                 />
               </Route>
               <Route path='/channels/inputs'>

@@ -1,7 +1,7 @@
 export default class RPiIoOptions {
   static #ioDevices = {
-    inputs: {
-      digitalInput: { options: ['pull_up', 'active_state', 'bounce_time'] },
+    digitalInput: {
+      genericInput: { options: ['pull_up', 'active_state', 'bounce_time'] },
       smoothedInput: {
         options: [
           'pull_up',
@@ -21,8 +21,8 @@ export default class RPiIoOptions {
         ]
       }
     },
-    outputs: {
-      digitalOutput: {
+    digitalOutput: {
+      genericOutput: {
         options: ['active_high', 'initialValue', 'on_time', 'off_time']
       },
       softwarePwmOutput: {
@@ -42,7 +42,7 @@ export default class RPiIoOptions {
         options: {}
       }
     },
-    devices: {
+    device: {
       i2cDev: {
         // I2C communication
         channels: { 1: [2, 3] },
@@ -63,10 +63,10 @@ export default class RPiIoOptions {
   static #channelOptions = {
     2: {
       inputs: {
-        input: { type: 'digitalInput', label: 'Input' }
+        digitalInput: { label: 'Digital Input' }
       },
       outputs: {
-        output: { type: 'digitalOutput', label: 'Output' }
+        digitalOutput: { label: 'Digital Output' }
       },
       devices: {
         alt0: { type: 'i2cDev', channelGroup: 1, label: 'I2C 1 SDA' }
@@ -74,10 +74,10 @@ export default class RPiIoOptions {
     },
     3: {
       inputs: {
-        input: { type: 'digitalInput', label: 'Input' }
+        digitalInput: { label: 'Digital Input' }
       },
       outputs: {
-        output: { type: 'digitalOutput', label: 'Output' }
+        digitalOutput: { label: 'Digital Output' }
       },
       devices: {
         alt0: { type: 'i2cDev', channelGroup: 1, label: 'I2C 1 SCL' }
@@ -85,37 +85,37 @@ export default class RPiIoOptions {
     },
     4: {
       inputs: {
-        input: { type: 'digitalInput', label: 'Input' }
+        digitalInput: { label: 'Digital Input' }
       },
       outputs: {
-        output: { type: 'digitalOutput', label: 'Output' }
+        digitalOutput: { label: 'Digital Output' }
       },
       devices: {}
     },
     5: {
       inputs: {
-        input: { type: 'digitalInput', label: 'Input' }
+        digitalInput: { label: 'Digital Input' }
       },
       outputs: {
-        output: { type: 'digitalOutput', label: 'Output' }
+        digitalOutput: { label: 'Digital Output' }
       },
       devices: {}
     },
     6: {
       inputs: {
-        input: { type: 'digitalInput', label: 'Input' }
+        digitalInput: { label: 'Digital Input' }
       },
       outputs: {
-        output: { type: 'digitalOutput', label: 'Output' }
+        digitalOutput: { label: 'Digital Output' }
       },
       devices: {}
     },
     7: {
       inputs: {
-        input: { type: 'digitalInput', label: 'Input' }
+        digitalInput: { label: 'Digital Input' }
       },
       outputs: {
-        output: { type: 'digitalOutput', label: 'Output' }
+        digitalOutput: { label: 'Digital Output' }
       },
       devices: {
         alt0: { type: 'spiDev', channelGroup: 0, label: 'SPI 0 CE1' }
@@ -123,10 +123,10 @@ export default class RPiIoOptions {
     },
     8: {
       inputs: {
-        input: { type: 'digitalInput', label: 'Input' }
+        digitalInput: { label: 'Digital Input' }
       },
       outputs: {
-        output: { type: 'digitalOutput', label: 'Output' }
+        digitalOutput: { label: 'Digital Output' }
       },
       devices: {
         alt0: { type: 'spiDev', channelGroup: 0, label: 'SPI 0 CE0' }
@@ -134,10 +134,10 @@ export default class RPiIoOptions {
     },
     9: {
       inputs: {
-        input: { type: 'digitalInput', label: 'Input' }
+        digitalInput: { label: 'Digital Input' }
       },
       outputs: {
-        output: { type: 'digitalOutput', label: 'Output' }
+        digitalOutput: { label: 'Digital Output' }
       },
       devices: {
         alt0: { type: 'spiDev', channelGroup: 0, label: 'SPI 0 MISO' }
@@ -145,10 +145,10 @@ export default class RPiIoOptions {
     },
     10: {
       inputs: {
-        input: { type: 'digitalInput', label: 'Input' }
+        digitalInput: { label: 'Digital Input' }
       },
       outputs: {
-        output: { type: 'digitalOutput', label: 'Output' }
+        digitalOutput: { label: 'Digital Output' }
       },
       devices: {
         alt0: { type: 'spiDev', channelGroup: 0, label: 'SPI 0 MOSI' }
@@ -156,10 +156,10 @@ export default class RPiIoOptions {
     },
     11: {
       inputs: {
-        input: { type: 'digitalInput', label: 'Input' }
+        digitalInput: { label: 'Digital Input' }
       },
       outputs: {
-        output: { type: 'digitalOutput', label: 'Output' }
+        digitalOutput: { label: 'Digital Output' }
       },
       devices: {
         alt0: { type: 'spiDev', channelGroup: 0, label: 'SPI 0 SCLK' }
@@ -167,10 +167,10 @@ export default class RPiIoOptions {
     },
     12: {
       inputs: {
-        input: { type: 'digitalInput', label: 'Input' }
+        digitalInput: { label: 'Digital Input' }
       },
       outputs: {
-        output: { type: 'digitalOutput', label: 'Output' },
+        digitalOutput: { label: 'Digital Output' },
         alt0: {
           type: 'hardwarePwmOutput',
           channelGroup: 0,
@@ -181,10 +181,10 @@ export default class RPiIoOptions {
     },
     13: {
       inputs: {
-        input: { type: 'digitalInput', label: 'Input' }
+        digitalInput: { label: 'Digital Input' }
       },
       outputs: {
-        output: { type: 'digitalOutput', label: 'Output' },
+        digitalOutput: { label: 'Digital Output' },
         alt0: {
           type: 'hardwarePwmOutput',
           channelGroup: 1,
@@ -195,10 +195,10 @@ export default class RPiIoOptions {
     },
     14: {
       inputs: {
-        input: { type: 'digitalInput', label: 'Input' }
+        digitalInput: { label: 'Digital Input' }
       },
       outputs: {
-        output: { type: 'digitalOutput', label: 'Output' }
+        digitalOutput: { label: 'Digital Output' }
       },
       devices: {
         alt0: {
@@ -215,10 +215,10 @@ export default class RPiIoOptions {
     },
     15: {
       inputs: {
-        input: { type: 'digitalInput', label: 'Input' }
+        digitalInput: { label: 'Digital Input' }
       },
       outputs: {
-        output: { type: 'digitalOutput', label: 'Output' }
+        digitalOutput: { label: 'Digital Output' }
       },
       devices: {
         alt0: {
@@ -235,10 +235,10 @@ export default class RPiIoOptions {
     },
     16: {
       inputs: {
-        input: { type: 'digitalInput', label: 'Input' }
+        digitalInput: { label: 'Digital Input' }
       },
       outputs: {
-        output: { type: 'digitalOutput', label: 'Output' }
+        digitalOutput: { label: 'Digital Output' }
       },
       devices: {
         alt3: {
@@ -255,10 +255,10 @@ export default class RPiIoOptions {
     },
     17: {
       inputs: {
-        input: { type: 'digitalInput', label: 'Input' }
+        digitalInput: { label: 'Digital Input' }
       },
       outputs: {
-        output: { type: 'digitalOutput', label: 'Output' }
+        digitalOutput: { label: 'Digital Output' }
       },
       devices: {
         alt3: {
@@ -280,10 +280,10 @@ export default class RPiIoOptions {
     },
     18: {
       inputs: {
-        input: { type: 'digitalInput', label: 'Input' }
+        digitalInput: { label: 'Digital Input' }
       },
       outputs: {
-        output: { type: 'digitalOutput', label: 'Output' },
+        digitalOutput: { label: 'Digital Output' },
         alt5: {
           type: 'hardwarePwmOutput',
           channelGroup: 0,
@@ -300,10 +300,10 @@ export default class RPiIoOptions {
     },
     19: {
       inputs: {
-        input: { type: 'digitalInput', label: 'Input' }
+        digitalInput: { label: 'Digital Input' }
       },
       outputs: {
-        output: { type: 'digitalOutput', label: 'Output' },
+        digitalOutput: { label: 'Digital Output' },
         alt5: {
           type: 'hardwarePwmOutput',
           channelGroup: 1,
@@ -320,10 +320,10 @@ export default class RPiIoOptions {
     },
     20: {
       inputs: {
-        input: { type: 'digitalInput', label: 'Input' }
+        digitalInput: { label: 'Digital Input' }
       },
       outputs: {
-        output: { type: 'digitalOutput', label: 'Output' }
+        digitalOutput: { label: 'Digital Output' }
       },
       devices: {
         alt4: {
@@ -335,10 +335,10 @@ export default class RPiIoOptions {
     },
     21: {
       inputs: {
-        input: { type: 'digitalInput', label: 'Input' }
+        digitalInput: { label: 'Digital Input' }
       },
       outputs: {
-        output: { type: 'digitalOutput', label: 'Output' }
+        digitalOutput: { label: 'Digital Output' }
       },
       devices: {
         alt4: {
@@ -350,46 +350,46 @@ export default class RPiIoOptions {
     },
     22: {
       inputs: {
-        input: { type: 'digitalInput', label: 'Input' }
+        digitalInput: { label: 'Digital Input' }
       },
       outputs: {
-        output: { type: 'digitalOutput', label: 'Output' }
+        digitalOutput: { label: 'Digital Output' }
       },
       devices: {}
     },
     23: {
       inputs: {
-        input: { type: 'digitalInput', label: 'Input' }
+        digitalInput: { label: 'Digital Input' }
       },
       outputs: {
-        output: { type: 'digitalOutput', label: 'Output' }
+        digitalOutput: { label: 'Digital Output' }
       },
       devices: {}
     },
     24: {
       inputs: {
-        input: { type: 'digitalInput', label: 'Input' }
+        digitalInput: { label: 'Digital Input' }
       },
       outputs: {
-        output: { type: 'digitalOutput', label: 'Output' }
+        digitalOutput: { label: 'Digital Output' }
       },
       devices: {}
     },
     25: {
       inputs: {
-        input: { type: 'digitalInput', label: 'Input' }
+        digitalInput: { label: 'Digital Input' }
       },
       outputs: {
-        output: { type: 'digitalOutput', label: 'Output' }
+        digitalOutput: { label: 'Digital Output' }
       },
       devices: {}
     },
     26: {
       inputs: {
-        input: { type: 'digitalInput', label: 'Input' }
+        digitalInput: { label: 'Digital Input' }
       },
       outputs: {
-        output: { type: 'digitalOutput', label: 'Output' }
+        digitalOutput: { label: 'Digital Output' }
       },
       devices: {}
     }
@@ -411,54 +411,58 @@ export default class RPiIoOptions {
   static getChannelInputOptions(channel) {
     // Lookup the input options if the designated channel has
     // an input designation. Return an empty object if the channel
-    // isn't found or if it has no input designaiton.
-    let co = this.#channelOptions[channel];
-    if (undefined === co) {
+    // isn't found, or if it has no input designaiton, or if there are
+    // no input types specified.
+    let co = this.getChannelOptions(channel);
+    if (0 === Object.keys(co).length) {
       return {};
     }
+    // If we get here, the options were found (valid channel)
+    // Get the input options
     let cio = co['inputs'];
     if (undefined === cio) {
       return {};
     }
     // If we get here, the input options were found,
     // meaning we have a valid channel with an input designaiton
-    cio.options = this.#ioDevices.inputs;
-    return cio;
+    // Get the digital input options, and put them into an initially
+    // empty object. If it stays empty, there was nothing to add.
+    let ciOptions = {};
+    for (let key in cio) {
+      let dev = this.#ioDevices[key];
+      if (undefined !== dev) {
+        ciOptions[key] = dev;
+      }
+    }
+    return ciOptions;
   }
 
   static getChannelOutputOptions(channel) {
     // Lookup the output options if the designated channel has
     // an output designation. Return an empty object if the channel
-    // isn't found or if it has no output designaiton.
-    let co = this.#channelOptions[channel];
-    if (undefined === co) {
+    // isn't found, or if it has no output designaiton, or if there are
+    // no output types specified.
+    let co = this.getChannelOptions(channel);
+    if (0 === Object.keys(co).length) {
       return {};
     }
+    // If we get here, the options were found (valid channel)
+    // Get the output options
     let coo = co['outputs'];
     if (undefined === coo) {
       return {};
     }
     // If we get here, the output options were found,
     // meaning we have a valid channel with an output designaiton
-    coo.options = this.#ioDevices.outputs;
-    return coo;
-  }
-
-  static getChannelDeviceOptions(channel) {
-    // Lookup the output options if the designated channel has
-    // an output designation. Return an empty object if the channel
-    // isn't found or if it has no output designaiton.
-    let co = this.#channelOptions[channel];
-    if (undefined === co) {
-      return {};
+    // Get the digital output options, and put them into an initially
+    // empty object. If it stays empty, there was nothing to add.
+    let coOptions = {};
+    for (let key in coo) {
+      let dev = this.#ioDevices[key];
+      if (undefined !== dev) {
+        coOptions[key] = dev;
+      }
     }
-    let cdo = co['devices'];
-    if (undefined === cdo) {
-      return {};
-    }
-    // If we get here, the output options were found,
-    // meaning we have a valid channel with an output designaiton
-    cdo.options = this.#ioDevices.devices;
-    return cdo;
+    return coOptions;
   }
 }

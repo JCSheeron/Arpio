@@ -1,6 +1,6 @@
 // File: api/index.js
 // Handle api requests here
-// API calls for data (json, db, etc.) that is not static is
+// API calls for data (json, db, etc.) that are not static is
 // handled by the backend by express router.
 
 import express from 'express';

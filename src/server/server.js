@@ -1,7 +1,8 @@
 // File: server.json
 // This file is used in conjuction with serverRender.js for server side rendering:
 // Express server is set up.
-// sassMiddleware is used, and handlebars is used as a template engine.
+// Using npm for sass instead of webpack and sassMiddleware
+// Handlebars is used as a template engine.
 // server.get(path, callback) calls are made, and in general, the specified callback
 // function is in the serverRender.js file.  The callback calls an Axios promise,
 // and the resulting promise is returned to the server.get call in this file.  The
@@ -11,7 +12,7 @@
 //
 
 import path from 'path';
-import { inspect } from 'util'; // console.log of objects
+// import { inspect } from 'util'; // console.log of objects
 // using npm for sass instead of webpack
 // import sassMiddleware from 'node-sass-middleware';
 // express
@@ -23,7 +24,7 @@ import hbs from 'express-handlebars';
 // BPS stuff
 // modules (type: module in package.json) need extension
 import config from '../../config';
-import apiRouter from './api/index.js'; // import the api router (./api/index.js)
+import apiRouter from './api/index.js'; // import the api router
 import * as serverRender from './serverRender.js';
 
 // set paths
