@@ -1,7 +1,7 @@
 // Api logic
 // Funcitons to fetch data from api
 import axios from 'axios';
-// import { inspect } from 'util'; // console.log of objects
+import { inspect } from 'util'; // console.log of objects
 
 export const fetchEventList = () => {
   // axios returns a promise
@@ -80,4 +80,21 @@ export const addTrigger = (eventId, newTrigger) => {
     .then((resp) => resp.data);
 };
 
-export const updateChannel = (channel) => {};
+export const updateChannel = (channelConfig) => {
+  console.log(`api.js updateChannel
+    channelConfig: 
+    ${inspect(channelConfig, {
+      showHidden: false,
+      depth: null,
+      colors: true
+    })}`);
+  return axios
+    .post(`api/channels/${channelConfig._id}`, channelConfig)
+    .then((resp) => {
+      console.log(resp);
+      return resp.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};

@@ -1,6 +1,6 @@
 // File: api/index.js
 // Handle api requests here
-// API calls for data (json, db, etc.) that are not static is
+// API calls for data (json, db, etc.) that are not static are
 // handled by the backend by express router.
 
 import express from 'express';
@@ -15,6 +15,7 @@ const jsonParser = bodyParser.json();
 //  SIMULATED DATA FROM DATA FILE
 // simulated data from backend
 import data from '../data/testData1.json';
+import { formatISO9075 } from 'date-fns';
 
 // Do any coditioning of the read in data.
 // Get the data in to a a data object.
@@ -87,6 +88,14 @@ router.post('/events/startTimes', jsonParser, (req, res) => {
   // TODO: Update startTimes array in arpiData
   // Something like:
   // arpiData.events[eventId].startTimes.push(startTime)
+});
+
+router.post('/channels/:channelId', jsonParser, (req, res) => {
+  console.log('api/index post channels/:channelId');
+  console.log(`channel id: ${req.params.channelId}`);
+  console.log('req body:');
+  console.log(req.body);
+  res.send('Howdy Folks!!');
 });
 //END SIMULATED DATA FROM DATA FILE
 

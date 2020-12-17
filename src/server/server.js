@@ -107,7 +107,7 @@ server.get(['/', '/home'], (req, res) => {
   serverRender
     .baseDataRender() // promise from serverRender axios get call
     .then(({ initialMarkup, initialData }) => {
-      // Render a view (output from WP that includes bundled scripts,
+      // Render a view (output from WP that includes bundled scripts),
       // passing local variables to the view.
       // Path is expected to be relative to views directory.
       res.render('./shared/viewAppClientWp.hbs', {

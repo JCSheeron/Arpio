@@ -111,14 +111,19 @@ const Main = (props) => {
 
   const handleUpdateChannel = (channel) => {
     // update the channel with the specified id with the sepcified channel config
-    console.log('handleUpdateChannel in main');
-    console.log(locChannels.current);
-    console.log('target channel:');
-    console.log(locChannels.current[channel._id]);
+    // console.log('handleUpdateChannel in main');
+    // console.log(locChannels.current);
+    // console.log('target channel:');
+    // console.log(locChannels.current[channel._id]);
     console.log('Incoming channel config');
     console.log(channel);
     locChannels.current[channel._id] = channel;
     console.log(locChannels.current);
+    api.updateChannel(channel).then((resp) => {
+      console.log('***Bobalu');
+      console.log('api/updateChannel response:');
+      console.log(resp);
+    });
   };
 
   return (
