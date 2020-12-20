@@ -1,24 +1,114 @@
 export default class RPiIoOptions {
   static #ioDevices = {
     digitalInput: {
-      genericInput: { options: ['pull_up', 'active_state', 'bounce_time'] },
+      genericInput: {
+        options: {
+          pullUpDown: {
+            label: 'Pull Up/Down Resistor',
+            default: false,
+            options: [
+              { label: 'Pull Up', type: 'pick', value: true },
+              { label: 'Pull Down', type: 'pick', value: false },
+              { label: 'None', type: 'pick', value: 'none' }
+            ]
+          },
+          active_state: {
+            label: 'Active State',
+            default: 'none',
+            options: [
+              { label: 'High', type: 'pick', value: true },
+              { label: 'Low', type: 'pick', value: false },
+              { label: 'None', type: 'pick', value: 'none' }
+            ]
+          },
+          bounce_time: {
+            label: 'Bounce Time',
+            default: 0.0,
+            options: [
+              { label: 'Sec.', type: 'float' },
+              { label: 'None', type: 'pick', value: 'none' }
+            ]
+          }
+        }
+      },
       smoothedInput: {
-        options: [
-          'pull_up',
-          'active_state',
-          'threshold',
-          'queue_len',
-          'sample_wait'
-        ]
+        options: {
+          pullUpDown: {
+            label: 'Pull Up/Down Resistor',
+            default: false,
+            options: [
+              { label: 'Pull Up', type: 'pick', value: true },
+              { label: 'Pull Down', type: 'pick', value: false },
+              { label: 'None', type: 'pick', value: 'none' }
+            ]
+          },
+          active_state: {
+            label: 'Active State',
+            default: 'none',
+            options: [
+              { label: 'High', type: 'pick', value: true },
+              { label: 'Low', type: 'pick', value: false },
+              { label: 'None', type: 'pick', value: 'none' }
+            ]
+          },
+          threshold: {
+            label: 'Threshold',
+            default: 0.5,
+            options: [{ label: 'Sig. Level', type: 'float' }]
+          },
+          queue_len: {
+            label: 'Queue Length',
+            default: 5,
+            options: [{ label: 'length', type: 'int' }]
+          },
+          sample_wait: {
+            label: 'Sample Wait',
+            default: 0.0,
+            options: [{ label: 'Sec.', type: 'float' }]
+          }
+        }
       },
       button: {
-        options: [
-          'pull_up',
-          'active_state',
-          'bounce_time',
-          'hold_time',
-          'hold_repeat'
-        ]
+        options: {
+          pullUpDown: {
+            label: 'Pull Up/Down Resistor',
+            default: false,
+            options: [
+              { label: 'Pull Up', type: 'pick', value: true },
+              { label: 'Pull Down', type: 'pick', value: false },
+              { label: 'None', type: 'pick', value: 'none' }
+            ]
+          },
+          active_state: {
+            label: 'Active State',
+            default: 'none',
+            options: [
+              { label: 'High', type: 'pick', value: true },
+              { label: 'Low', type: 'pick', value: false },
+              { label: 'None', type: 'pick', value: 'none' }
+            ]
+          },
+          bounce_time: {
+            label: 'Bounce Time',
+            default: 0.0,
+            options: [
+              { label: 'Sec.', type: 'float' },
+              { label: 'None', type: 'pick', value: 'none' }
+            ]
+          },
+          hold_time: {
+            label: 'Hold Time',
+            default: 1.0,
+            options: [{ label: 'Sec.', type: 'float' }]
+          },
+          hold_repeat: {
+            label: 'Repeat on Hold',
+            default: false,
+            options: [
+              { label: 'Repeat on hold', type: 'pick', value: true },
+              { label: 'Once per hold', type: 'pick', value: false },
+            ]
+        }
       }
     },
     digitalOutput: {

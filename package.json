@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rimraf dist/bundles/* && rimraf build/*",
-    "start-server": "nodemon --exec babel-node build/bpsServer-bundle.js --ignore dist/",
+    "start-server": "nodemon --exec babel-node build/bpsServer-bundle.js --ignore dist/ --ignore src/server/data",
     "start-client": "webpack-dev-server --config=webpack-front.config.js --progress",
     "build-server": "webpack --config=webpack-back.config.js -p",
     "build-server-dev": "webpack --config=webpack-back.config.js --progress --debug --output-pathinfo",

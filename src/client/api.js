@@ -1,5 +1,17 @@
 // Api logic
-// Funcitons to fetch data from api
+// Funcitons to fetch data the server.
+// In general:
+//  1) These functions are called from client components
+//  2) These functions return axios promises.
+//  3) axios.get(path, data) for example will send a request to
+//  src/server/api/index.js router.get(path).  The router will send
+//  back the data, and the axios promise that is returned, will return the
+//  data from the router.
+//  4) axios.post(path, data) will send a request to
+//  src/server/api/index.js router.post(path, data, callback). The router
+//  will update the data and return a response. The axios promise that
+//  is returned will return the response from the server.
+
 import axios from 'axios';
 import { inspect } from 'util'; // console.log of objects
 
@@ -91,7 +103,9 @@ export const updateChannel = (channelConfig) => {
   return axios
     .post(`api/channels/${channelConfig._id}`, channelConfig)
     .then((resp) => {
+      console.log('Resp logged from api.js/UpdateChannel Below');
       console.log(resp);
+      console.log('Resp logged from api.js/UpdateChannel Above');
       return resp.data;
     })
     .catch((error) => {

@@ -8,53 +8,135 @@ import express from 'express';
 
 const router = express.Router();
 
+import path from 'path';
+
 // body parser
 import bodyParser from 'body-parser';
 const jsonParser = bodyParser.json();
 
-//  SIMULATED DATA FROM DATA FILE
-// simulated data from backend
-import data from '../data/testData1.json';
-import { formatISO9075 } from 'date-fns';
+//import { formatISO9075 } from 'date-fns';
 
-// Do any coditioning of the read in data.
-// Get the data in to a a data object.
-const arpiDataObj = data.arpiData;
+// SIMULATED DATA FROM DATA FILE
+// simulated data from backend
+// importing the data works, but it is only read once and cached, so changes
+// won't be reflected when referencing the data. Instead, use node fs.readFile.
+// import data from '../data/testData1.json';
+const CONFIG_DATA = path.resolve(
+  __dirname,
+  '../src/server/data/testData1.json'
+);
+// Read and parse the json data file
+import fs from 'fs';
+
+// readConfigData takes in a file path and a call back function.
+// The file gets read, and then the callback gets called.
+// The data in the file needs to be in a JSON format.  It is read in as a
+// string, but then converted to a JSON object, and passed to the callback.
+// The callback takes parameters (error, jsonObject)
+const readConfigData = (filePath, cb) => {
+  fs.readFile(filePath, 'utf-8', (err, jsonString) => {
+    if (err) {
+      // return cb(err) if cb exists
+      return cb && cb(err);
+    }
+    // If we get here, we were able to read the file.
+    // Try parsing the json string into a json object.
+    try {
+      let jsonObject = JSON.parse(jsonString);
+      return cb && cb(null, jsonObject);
+    } catch (err) {
+      return cb && cb(err);
+    }
+  });
+};
+
+// writeConfigData takes in a file path, a JSON data object, and a
+// call back function. The file gets written, and then the callback gets called.
+// The file will be replaced if it already exists.
+// The JSON data object is converted to a string, and written to a file.
+// The callback takes parameters (error)
+const writeConfigData = (filePath, jsonObject, cb) => {
+  try {
+    var jsonString = JSON.stringify(jsonObject, null, 2); // 2 space indent
+  } catch (err) {
+    return cb && cb(err);
+  }
+  fs.writeFile(filePath, jsonString, 'utf-8', (err) => {
+    if (err) {
+      // return cb(err) if cb exists
+      return cb && cb(err);
+    }
+    // If we get here, we were able to write the file.
+    return cb && cb(null);
+  });
+};
 
 router.get('/', (req, res) => {
-  // send back the events object
-  res.send({
-    channels: arpiDataObj.channels,
-    operation: arpiDataObj.operation,
-    events: arpiDataObj.events
+  // read in the data
+  readConfigData(CONFIG_DATA, (err, configData) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    // send back the config objects
+    res.send({
+      channels: configData.arpiData.channels,
+      operation: configData.arpiData.operation,
+      events: configData.arpiData.events
+    });
   });
 });
 
 router.get('/events', (req, res) => {
-  // send back the events object
-  res.send({
-    events: arpiDataObj.events
+  // read in the config data
+  readConfigData(CONFIG_DATA, (err, configData) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    // send back the events object
+    res.send({
+      events: configData.arpiData.events
+    });
   });
 });
 
 router.get('/events/:eventId', (req, res) => {
-  // get event object from the request params id
+  // get event object for the request params id
   // Make overall object to support returning additional values,
   // and to be consistent with the App state variables.
-  let dataObj = {
-    currentEventId: req.params.eventId,
-    events: { [req.params.eventId]: arpiDataObj.events[req.params.eventId] }
-  };
-  //console.log(
-  //  inspect(dataObj, { showHidden: false, depth: null, colors: true })
-  //);
-  res.send(dataObj);
+
+  // read in the config data
+  readConfigData(CONFIG_DATA, (err, configData) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    let dataObj = {
+      currentEventId: req.params.eventId,
+      events: {
+        [req.params.eventId]: configData.arpiData.events[req.params.eventId]
+      }
+    };
+    //console.log(
+    //  inspect(dataObj, { showHidden: false, depth: null, colors: true })
+    //);
+    res.send(dataObj);
+  });
 });
 
 router.get('/channels/', (req, res) => {
-  // send back the channels object
-  res.send({
-    channels: arpiDataObj.channels
+  // read in the config data
+  readConfigData(CONFIG_DATA, (err, configData) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    // console.log(configData);
+    // send back the channels object
+    res.send({
+      channels: configData.arpiData.channels
+    });
   });
 });
 
@@ -62,16 +144,25 @@ router.get('/channels/:channelId', (req, res) => {
   // get channels object from the request params id
   // Make overall object to support returning additional values,
   // and to be consistent with the App state variables.
-  let dataObj = {
-    currentChannelId: req.params.channelId,
-    channels: {
-      [req.params.channelId]: arpiDataObj.channels[req.params.channelId]
+
+  // read in the config data
+  readConfigData(CONFIG_DATA, (err, configData) => {
+    if (err) {
+      console.log(err);
+      return;
     }
-  };
-  res.send(dataObj);
+    let dataObj = {
+      currentChannelId: req.params.channelId,
+      channels: {
+        [req.params.channelId]:
+          configData.arpiData.channels[req.params.channelId]
+      }
+    };
+    res.send(dataObj);
+  });
 });
 // Use route specific parser -- body-parser
-router.post('/events/startTimes', jsonParser, (req, res) => {
+router.post('/events/startTimes', jsonParser, (req, resp) => {
   // Read the data from the request body, but it also needs to be parsed.
   // should get (startTime, eventId) in the request
   // Put req params into vars to facilitate validation
@@ -90,12 +181,39 @@ router.post('/events/startTimes', jsonParser, (req, res) => {
   // arpiData.events[eventId].startTimes.push(startTime)
 });
 
-router.post('/channels/:channelId', jsonParser, (req, res) => {
-  console.log('api/index post channels/:channelId');
-  console.log(`channel id: ${req.params.channelId}`);
-  console.log('req body:');
-  console.log(req.body);
-  res.send('Howdy Folks!!');
+// Read in the config data. Add or replace the channel config, and write the
+// file back out. The body parser take the body from teh request, parses it,
+// and replaces the body in the original request with the new parsed body.
+router.post('/channels/:channelId', jsonParser, (req, resp) => {
+  // console.log('api/index post channels/:channelId');
+  // console.log(`channel id: ${req.params.channelId}`);
+  // console.log('req body:');
+  // console.log(req.body);
+
+  // Read in the config data
+  readConfigData(CONFIG_DATA, (err, configData) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+
+    // At this point, the configData object has the info from the file, and
+    // the req.body object has the new config data.
+    // Update the config data by merging the new data into the old.
+    configData.arpiData.channels[req.params.channelId] = {
+      ...configData.arpiData.channels[req.params.channelId],
+      ...req.body
+    };
+
+    // Write the config data to the file
+    writeConfigData(CONFIG_DATA, configData, (err) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+    });
+    resp.send('Howdy Folks!!');
+  });
 });
 //END SIMULATED DATA FROM DATA FILE
 
